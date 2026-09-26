@@ -1,0 +1,203 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Free Invoice Generator — No Sign-Up, Save as PDF | GenFreeInvoice</title><meta name="description" content="Create a professional freelance invoice free. Add items, tax, and notes, then print or save as PDF in 2 minutes. No account needed."><link rel="canonical" href="https://genfreeinvoice.com/invoice-generator.html"><meta property="og:title" content="Free Invoice Generator — No Sign-Up, Save as PDF | GenFreeInvoice"><meta property="og:description" content="Create a professional freelance invoice free. Add items, tax, and notes, then print or save as PDF in 2 minutes. No account needed."><meta property="og:url" content="https://genfreeinvoice.com/invoice-generator.html"><meta property="og:type" content="website"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:#2d2a3a;line-height:1.65;background:#f7f6fb}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+a{color:#667eea;text-decoration:none}a:hover{text-decoration:underline}
+.site-header{background:#fff;box-shadow:0 2px 12px rgba(40,20,80,.08);position:sticky;top:0;z-index:50}
+.nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;max-width:1100px;margin:0 auto;flex-wrap:wrap;gap:8px}
+.logo{font-size:1.35rem;font-weight:800;color:#3b2f63}
+.logo span{background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;background-clip:text;color:transparent}
+nav a{margin-left:18px;color:#4a4364;font-weight:600;font-size:.95rem}
+nav a:hover{color:#667eea;text-decoration:none}
+.hero{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:72px 0;text-align:center}
+.hero h1{font-size:2.4rem;margin-bottom:14px;line-height:1.25}
+.hero p{max-width:640px;margin:0 auto 28px;font-size:1.1rem;opacity:.95}
+.btn{display:inline-block;background:#fff;color:#5a3fa0;font-weight:700;padding:13px 28px;border-radius:30px;border:none;cursor:pointer;font-size:1rem;box-shadow:0 4px 14px rgba(0,0,0,.18);margin:4px}
+.btn-ghost{background:transparent;border:2px solid #fff;color:#fff}
+.btn:hover{transform:translateY(-2px);text-decoration:none}
+section{padding:56px 0}
+.section-title{text-align:center;font-size:1.9rem;color:#2f2752;margin-bottom:8px}
+.section-sub{text-align:center;color:#6b6484;max-width:620px;margin:0 auto 40px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+.card{background:#fff;border-radius:16px;padding:26px;box-shadow:0 6px 20px rgba(60,40,120,.08);transition:.25s}
+.card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(60,40,120,.14)}
+.card .icon{font-size:2rem}
+.card h3{margin:10px 0 6px;color:#2f2752;font-size:1.15rem}
+.card p{color:#6b6484;font-size:.94rem;margin-bottom:14px}
+.card-link{font-weight:700}
+.page-hero{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:48px 0;text-align:center}
+.page-hero h1{font-size:2rem;margin-bottom:8px}
+.page-hero p{opacity:.95;max-width:640px;margin:0 auto}
+.tool-card{background:#fff;border-radius:16px;padding:30px;box-shadow:0 6px 20px rgba(60,40,120,.08);margin-top:-34px;position:relative}
+.field{margin-bottom:14px}
+label{font-weight:600;color:#4a4364;font-size:.9rem}
+input,select{width:100%;padding:11px 12px;border:1.5px solid #ddd6ee;border-radius:8px;font-size:.95rem;margin-top:4px;font-family:inherit}
+input:focus,select:focus{outline:none;border-color:#667eea}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.two-col{grid-template-columns:1fr}}
+.calc-btn{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:13px 26px;border:none;border-radius:30px;font-weight:700;font-size:1rem;cursor:pointer}
+.calc-btn:hover{opacity:.92}
+.result-box{background:#f0edfa;border-left:4px solid #667eea;border-radius:10px;padding:18px;margin-top:18px;display:none}
+.result-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed #d9d2ec;font-size:.95rem}
+.result-row.total{font-size:1.15rem;font-weight:800;color:#3b2f63;border-bottom:none}
+table.items{width:100%;border-collapse:collapse;margin:8px 0}
+.items th{background:#f0edfa;padding:8px;font-size:.85rem;color:#4a4364;text-align:left}
+.items td{padding:5px 4px;vertical-align:top}
+.ad-slot{border:2px dashed #c9c2dd;border-radius:12px;background:#faf9fd;color:#9a92b5;text-align:center;padding:34px 16px;margin:38px 0;font-size:.9rem}
+.prose{max-width:780px;margin:0 auto;background:#fff;border-radius:16px;padding:40px;box-shadow:0 6px 20px rgba(60,40,120,.08)}
+.prose h2{color:#2f2752;margin:30px 0 10px;font-size:1.4rem}
+.prose h3{color:#3b2f63;margin:20px 0 8px}
+.prose p,.prose li{color:#4a4560;font-size:1rem}
+.prose ul,.prose ol{padding-left:22px;margin:10px 0}
+.prose li{margin-bottom:6px}
+.article-hero{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:56px 0;text-align:center}
+.article-hero .chip{background:rgba(255,255,255,.2);padding:5px 14px;border-radius:20px;font-size:.8rem;font-weight:700;letter-spacing:.5px}
+.article-hero h1{font-size:2rem;margin:14px auto 10px;max-width:760px;line-height:1.3}
+.article-meta{opacity:.9;font-size:.9rem}
+.cta-box{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-radius:14px;padding:28px;text-align:center;margin:36px 0}
+.cta-box h3{margin-bottom:8px}
+.faq details{background:#f7f5fc;border:1px solid #e4def3;border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.faq summary{font-weight:700;color:#3b2f63;cursor:pointer}
+.faq p{margin-top:8px}
+footer{background:#221735;color:#cfc8e6;padding:52px 0 26px;margin-top:60px}
+.footer-grid{display:grid;grid-template-columns:1.3fr 1fr 1.4fr 1fr;gap:34px}
+@media(max-width:820px){.footer-grid{grid-template-columns:1fr 1fr}.hero h1{font-size:1.7rem}}
+@media(max-width:560px){.footer-grid{grid-template-columns:1fr}.prose{padding:26px}}
+footer h4{color:#fff;margin-bottom:12px;font-size:1rem}
+footer a{color:#cfc8e6;display:inline-block;margin-bottom:6px;font-size:.92rem}
+footer a:hover{color:#fff}
+.guides-title{color:#fbbf24 !important}
+.guide-box{display:block;background:#fff;color:#3b2f63;border-radius:8px;padding:9px 12px;margin-bottom:8px;font-weight:600;font-size:.87rem}
+.guide-box:hover{background:#f3efff;text-decoration:none;color:#5a3fa0}
+.about-line{color:#cfc8e6;font-size:.92rem}
+.footer-bottom{text-align:center;border-top:1px solid #3a2d55;margin-top:36px;padding-top:20px;font-size:.85rem;color:#8f86ad}
+.note{font-size:.85rem;color:#8f86ad;margin-top:10px}
+</style></head><body>
+<header class="site-header"><div class="nav-wrap">
+<a class="logo" href="index.html">GenFree<span>Invoice</span></a>
+<nav><a href="index.html#tools">Tools</a><a href="index.html#guides">Guides</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
+</div></header>
+
+<div class="page-hero"><div class="container"><h1>Free Invoice Generator</h1><p>Create a professional invoice in under 2 minutes. Print it or save it as PDF. No sign-up, no watermark.</p></div></div>
+<section><div class="container">
+<div class="tool-card">
+<div class="two-col">
+<div class="field"><label>Your Name / Business</label><input id="fromName" type="text" placeholder="e.g. Ali Web Studio"></div>
+<div class="field"><label>Your Email</label><input id="fromEmail" type="email" placeholder="you@email.com"></div>
+<div class="field"><label>Client Name</label><input id="toName" type="text" placeholder="Client or company name"></div>
+<div class="field"><label>Client Email</label><input id="toEmail" type="email" placeholder="client@email.com"></div>
+<div class="field"><label>Invoice Number</label><input id="invNo" type="text" value="INV-001"></div>
+<div class="field"><label>Currency</label><select id="currency" onchange="calc()"><option value="$">$ USD</option><option value="&euro;">&euro; EUR</option><option value="&pound;">&pound; GBP</option><option value="&#8377;">&#8377; INR</option><option value="Rs ">Rs PKR</option></select></div>
+<div class="field"><label>Invoice Date</label><input id="invDate" type="date"></div>
+<div class="field"><label>Due Date</label><input id="dueDate" type="date"></div>
+</div>
+<div class="field"><label>Work Items</label>
+<table class="items"><thead><tr><th>Description</th><th>Qty</th><th>Rate</th><th></th></tr></thead><tbody id="itemsBody"></tbody></table>
+<button type="button" class="calc-btn" style="width:auto;padding:9px 20px;font-size:.9rem" onclick="addRow()">+ Add Item</button>
+</div>
+<div class="two-col">
+<div class="field"><label>Tax (%)</label><input id="tax" type="number" min="0" step="any" value="0" oninput="calc()"></div>
+<div class="field"><label>Notes / Payment Terms</label><input id="notes" type="text" placeholder="e.g. Payment due within 14 days via bank transfer"></div>
+</div>
+<button class="calc-btn" onclick="calc()">Calculate Total</button>
+<div class="result-box" id="result"></div>
+<div style="margin-top:16px"><button class="calc-btn" style="background:#3b2f63" onclick="printInvoice()">Print / Save as PDF</button></div>
+<p class="note">Your invoice is generated in your browser — it is never uploaded to any server. To save as PDF, choose "Save as PDF" in the print dialog.</p>
+</div>
+<div class="ad-slot">Advertisement</div>
+<div class="grid">
+<div class="card"><h3>1. Fill in your details</h3><p>Your name, client name, dates, and the work you completed.</p></div>
+<div class="card"><h3>2. Add items and tax</h3><p>List each piece of work with quantity and rate. Add tax if it applies.</p></div>
+<div class="card"><h3>3. Print or save as PDF</h3><p>One click opens the print dialog — save as PDF and send it to your client.</p></div>
+</div>
+<div class="cta-box"><h3>New to invoicing?</h3><p style="margin-bottom:14px">Read our guide on the exact fields that get invoices paid faster.</p><a class="btn" href="invoice-guide.html">Read the Invoice Guide</a></div>
+</div></section>
+
+<footer><div class="container"><div class="footer-grid">
+<div><h4>GenFreeInvoice</h4><p class="about-line">Free invoice, tax, and finance tools that help freelancers get paid fairly and manage money with confidence.</p></div>
+<div><h4>Free Tools</h4>
+<a href="invoice-generator.html">Invoice Generator</a><br>
+<a href="freelance-hourly-rate-calculator.html">Hourly Rate Calculator</a><br>
+<a href="tax-estimator.html">Tax Estimator</a><br>
+<a href="quote-calculator.html">Quote Calculator</a><br>
+<a href="timezone-planner.html">Time Zone Planner</a><br>
+<a href="savings-planner.html">Savings Planner</a><br>
+<a href="contract-generator.html">Contract Generator</a></div>
+<div><h4 class="guides-title">Freelance Guides</h4>
+<a class="guide-box" href="invoice-guide.html">How to Write an Invoice That Gets You Paid</a>
+<a class="guide-box" href="hourly-rate-guide.html">How to Calculate Your Freelance Hourly Rate</a>
+<a class="guide-box" href="self-employment-tax-guide.html">Self-Employment Tax Explained Simply</a>
+<a class="guide-box" href="project-quote-guide.html">How to Quote a Project Without Undercharging</a>
+<a class="guide-box" href="time-zone-guide.html">Working Across Time Zones Smoothly</a>
+<a class="guide-box" href="freelance-savings-guide.html">How Freelancers Should Save Money</a>
+<a class="guide-box" href="freelance-contract-guide.html">Freelance Contract Basics That Protect You</a></div>
+<div><h4>Legal</h4>
+<a href="about.html">About Us</a><br>
+<a href="contact.html">Contact Us</a><br>
+<a href="privacy-policy.html">Privacy Policy</a></div>
+</div>
+<div class="footer-bottom">&copy; 2026 GenFreeInvoice. All rights reserved.</div>
+</div></footer>
+
+<script>
+var CUR = '$';
+function setCur(){ CUR = document.getElementById('currency').value; }
+function money(n){ return CUR + n.toFixed(2); }
+function addRow(desc, qty, rate){
+  var tb = document.getElementById('itemsBody');
+  var tr = document.createElement('tr');
+  tr.innerHTML = '<td><input type="text" class="d" placeholder="e.g. Logo design" value="'+(desc||'')+'"></td>' +
+                 '<td style="width:70px"><input type="number" class="q" min="0" step="any" value="'+(qty!==undefined?qty:1)+'"></td>' +
+                 '<td style="width:100px"><input type="number" class="r" min="0" step="any" value="'+(rate!==undefined?rate:'')+'"></td>' +
+                 '<td style="width:30px"><button type="button" onclick="this.parentNode.parentNode.remove();calc();" style="background:none;border:none;color:#c0392b;font-size:1.1rem;cursor:pointer">&times;</button></td>';
+  tb.appendChild(tr);
+}
+function calc(){
+  setCur();
+  var sub = 0;
+  document.querySelectorAll('#itemsBody tr').forEach(function(tr){
+    var q = parseFloat(tr.querySelector('.q').value) || 0;
+    var r = parseFloat(tr.querySelector('.r').value) || 0;
+    sub += q * r;
+  });
+  var tax = parseFloat(document.getElementById('tax').value) || 0;
+  var taxAmt = sub * tax / 100;
+  var total = sub + taxAmt;
+  var box = document.getElementById('result');
+  box.style.display = 'block';
+  box.innerHTML = '<div class="result-row"><span>Subtotal</span><strong>'+money(sub)+'</strong></div>' +
+                  '<div class="result-row"><span>Tax ('+tax+'%)</span><strong>'+money(taxAmt)+'</strong></div>' +
+                  '<div class="result-row total"><span>Total Due</span><span>'+money(total)+'</span></div>';
+}
+function buildInvoiceHTML(){
+  setCur();
+  var rows = '';
+  document.querySelectorAll('#itemsBody tr').forEach(function(tr){
+    var d = tr.querySelector('.d').value || '-';
+    var q = parseFloat(tr.querySelector('.q').value) || 0;
+    var r = parseFloat(tr.querySelector('.r').value) || 0;
+    if(q>0 || r>0) rows += '<tr><td>'+d+'</td><td style="text-align:right">'+q+'</td><td style="text-align:right">'+money(r)+'</td><td style="text-align:right">'+money(q*r)+'</td></tr>';
+  });
+  var sub = 0; document.querySelectorAll('#itemsBody tr').forEach(function(tr){ sub += (parseFloat(tr.querySelector('.q').value)||0)*(parseFloat(tr.querySelector('.r').value)||0); });
+  var tax = parseFloat(document.getElementById('tax').value)||0;
+  var total = sub*(1+tax/100);
+  return '<h1 style="color:#764ba2;margin:0">GenFreeInvoice</h1>' +
+    '<p style="color:#888;margin-top:2px">INVOICE</p>' +
+    '<table style="width:100%;margin:18px 0"><tr>' +
+    '<td><strong>From:</strong><br>'+document.getElementById('fromName').value+'<br>'+document.getElementById('fromEmail').value+'</td>' +
+    '<td style="text-align:right"><strong>Invoice #:</strong> '+document.getElementById('invNo').value+'<br><strong>Date:</strong> '+document.getElementById('invDate').value+'<br><strong>Due:</strong> '+document.getElementById('dueDate').value+'</td></tr>' +
+    '<tr><td colspan="2" style="padding-top:10px"><strong>Bill To:</strong><br>'+document.getElementById('toName').value+'<br>'+document.getElementById('toEmail').value+'</td></tr></table>' +
+    '<table border="1" cellpadding="8" cellspacing="0" style="width:100%;border-collapse:collapse;font-size:14px">' +
+    '<tr style="background:#f0edfa"><th align="left">Description</th><th>Qty</th><th>Rate</th><th>Amount</th></tr>' + rows +
+    '<tr><td colspan="3" align="right"><strong>Subtotal</strong></td><td align="right">'+money(sub)+'</td></tr>' +
+    '<tr><td colspan="3" align="right"><strong>Tax ('+tax+'%)</strong></td><td align="right">'+money(sub*tax/100)+'</td></tr>' +
+    '<tr style="background:#f0edfa"><td colspan="3" align="right"><strong>TOTAL DUE</strong></td><td align="right"><strong>'+money(total)+'</strong></td></tr></table>' +
+    '<p style="margin-top:16px;color:#555">'+document.getElementById('notes').value+'</p>';
+}
+function printInvoice(){
+  var w = window.open('', '_blank');
+  w.document.write('<html><head><title>Invoice</title></head><body style="font-family:Arial;max-width:800px;margin:30px auto;color:#222">' + buildInvoiceHTML() + '</body></html>');
+  w.document.close(); w.focus(); w.print();
+}
+addRow(); addRow();
+</script></body></html>
