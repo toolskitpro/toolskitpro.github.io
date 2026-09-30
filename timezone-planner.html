@@ -120,13 +120,37 @@ footer a:hover{color:#fff}
 </div>
 <div class="footer-bottom">&copy; 2026 GenFreeInvoice. All rights reserved.</div>
 </div></footer>
-
 <script>
-var ZONES=['Pacific/Honolulu','America/Anchorage','America/Los_Angeles','America/Denver','America/Chicago','America/New_York','America/Sao_Paulo','Europe/London','Europe/Berlin','Europe/Moscow','Africa/Lagos','Africa/Johannesburg','Asia/Dubai','Asia/Karachi','Asia/Kolkata','Asia/Dhaka','Asia/Bangkok','Asia/Shanghai','Asia/Tokyo','Australia/Sydney','Pacific/Auckland'];
+var ZONES={
+"North & South America":[
+["America/Vancouver","Vancouver (Canada)"],["America/Edmonton","Edmonton (Canada)"],["America/Winnipeg","Winnipeg (Canada)"],["America/Toronto","Toronto (Canada)"],["America/Halifax","Halifax (Canada)"],["America/St_Johns","St. John's (Canada)"],
+["America/Anchorage","Anchorage (US Alaska)"],["America/Los_Angeles","Los Angeles / Seattle (US)"],["America/Denver","Denver (US)"],["America/Chicago","Chicago / Dallas (US)"],["America/New_York","New York / Miami (US)"],["Pacific/Honolulu","Honolulu (US Hawaii)"],
+["America/Mexico_City","Mexico City (Mexico)"],["America/Guatemala","Guatemala City (Guatemala)"],["America/Bogota","Bogota (Colombia)"],["America/Lima","Lima (Peru)"],["America/Santiago","Santiago (Chile)"],["America/Sao_Paulo","Sao Paulo (Brazil)"],["America/Caracas","Caracas (Venezuela)"]],
+"Europe":[
+["Europe/London","London (UK)"],["Europe/Dublin","Dublin (Ireland)"],["Europe/Lisbon","Lisbon (Portugal)"],["Europe/Madrid","Madrid (Spain)"],["Europe/Paris","Paris (France)"],["Europe/Amsterdam","Amsterdam (Netherlands)"],["Europe/Berlin","Berlin (Germany)"],["Europe/Rome","Rome (Italy)"],["Europe/Zurich","Zurich (Switzerland)"],["Europe/Vienna","Vienna (Austria)"],["Europe/Stockholm","Stockholm (Sweden)"],["Europe/Oslo","Oslo (Norway)"],["Europe/Copenhagen","Copenhagen (Denmark)"],["Europe/Helsinki","Helsinki (Finland)"],["Europe/Warsaw","Warsaw (Poland)"],["Europe/Prague","Prague (Czechia)"],["Europe/Athens","Athens (Greece)"],["Europe/Istanbul","Istanbul (Turkiye)"],["Europe/Moscow","Moscow (Russia)"],["Europe/Kyiv","Kyiv (Ukraine)"]],
+"Africa":[
+["Africa/Cairo","Cairo (Egypt)"],["Africa/Tunis","Tunis (Tunisia)"],["Africa/Casablanca","Casablanca (Morocco)"],["Africa/Lagos","Lagos (Nigeria)"],["Africa/Accra","Accra (Ghana)"],["Africa/Addis_Ababa","Addis Ababa (Ethiopia)"],["Africa/Nairobi","Nairobi (Kenya)"],["Africa/Johannesburg","Johannesburg (South Africa)"]],
+"Middle East & South Asia":[
+["Asia/Dubai","Dubai (UAE)"],["Asia/Riyadh","Riyadh (Saudi Arabia)"],["Asia/Qatar","Doha (Qatar)"],["Asia/Tehran","Tehran (Iran)"],["Asia/Karachi","Karachi (Pakistan)"],["Asia/Kabul","Kabul (Afghanistan)"],["Asia/Kolkata","Mumbai / Delhi (India)"],["Asia/Kathmandu","Kathmandu (Nepal)"],["Asia/Dhaka","Dhaka (Bangladesh)"],["Asia/Colombo","Colombo (Sri Lanka)"]],
+"East & Southeast Asia":[
+["Asia/Bangkok","Bangkok (Thailand)"],["Asia/Jakarta","Jakarta (Indonesia)"],["Asia/Singapore","Singapore"],["Asia/Kuala_Lumpur","Kuala Lumpur (Malaysia)"],["Asia/Manila","Manila (Philippines)"],["Asia/Shanghai","Beijing / Shanghai (China)"],["Asia/Hong_Kong","Hong Kong"],["Asia/Taipei","Taipei (Taiwan)"],["Asia/Seoul","Seoul (South Korea)"],["Asia/Tokyo","Tokyo (Japan)"],["Asia/Ulaanbaatar","Ulaanbaatar (Mongolia)"]],
+"Oceania":[
+["Australia/Perth","Perth (Australia)"],["Australia/Darwin","Darwin (Australia)"],["Australia/Brisbane","Brisbane (Australia)"],["Australia/Sydney","Sydney (Australia)"],["Australia/Melbourne","Melbourne (Australia)"],["Australia/Adelaide","Adelaide (Australia)"],["Pacific/Auckland","Auckland (New Zealand)"],["Pacific/Fiji","Suva (Fiji)"]]
+};
 function fill(id, def){
   var s=document.getElementById(id);
-  ZONES.forEach(function(z){ var o=document.createElement('option'); o.value=z; o.textContent=z.replace(/_/g,' '); if(z===def)o.selected=true; s.appendChild(o); });
+  Object.keys(ZONES).forEach(function(g){
+    var og=document.createElement('optgroup'); og.label=g;
+    ZONES[g].forEach(function(pair){
+      var z=pair[0], label=pair[1];
+      var o=document.createElement('option'); o.value=z; o.textContent=label;
+      if(z===def)o.selected=true;
+      og.appendChild(o);
+    });
+    s.appendChild(og);
+  });
 }
+function cityName(z){ var p=z.split('/'); return p[p.length-1].replace(/_/g,' '); }
 function t(zone, date){
   try{ return new Intl.DateTimeFormat('en-GB',{timeZone:zone,hour:'2-digit',minute:'2-digit',hour12:false}).format(date); }
   catch(e){ return '--:--'; }
@@ -137,8 +161,8 @@ function isInRange(zone, date, from, to){
 function calc(){
   var a=document.getElementById('zoneA').value, b=document.getElementById('zoneB').value;
   var now=new Date();
-  document.getElementById('nowA').textContent = a.replace(/_/g,' ')+' — '+t(a,now);
-  document.getElementById('nowB').textContent = b.replace(/_/g,' ')+' — '+t(b,now);
+  document.getElementById('nowA').textContent = cityName(a)+' — '+t(a,now);
+  document.getElementById('nowB').textContent = cityName(b)+' — '+t(b,now);
   var rows='';
   var found=false;
   for(var h=6; h<23; h++){
@@ -146,7 +170,7 @@ function calc(){
     var okA=isInRange(a,d,8,20), okB=isInRange(b,d,8,20);
     var good = okA && okB;
     if(good) found=true;
-    rows += '<div class="result-row" style="border-bottom:1px dashed #d9d2ec;'+(good?'background:#e7f8ee;':'opacity:.55')+'"><span>'+a.split('/')[1].replace(/_/g,' ')+': '+t(a,d)+'</span><strong>'+b.split('/')[1].replace(/_/g,' ')+': '+t(b,d)+(good?' &nbsp;<span style="color:#1e8e4f;font-size:.8rem">GOOD</span>':'')+'</strong></div>';
+    rows += '<div class="result-row" style="border-bottom:1px dashed #d9d2ec;'+(good?'background:#e7f8ee;':'opacity:.55')+'"><span>'+cityName(a)+': '+t(a,d)+'</span><strong>'+cityName(b)+': '+t(b,d)+(good?' &nbsp;<span style="color:#1e8e4f;font-size:.8rem">GOOD</span>':'')+'</strong></div>';
   }
   var box=document.getElementById('result');
   box.style.display='block';
@@ -155,4 +179,5 @@ function calc(){
     : '<p style="margin-bottom:8px">No perfect overlap in waking hours — consider alternating early/late meetings.</p>') + rows;
 }
 fill('zoneA','Asia/Karachi'); fill('zoneB','America/New_York'); calc();
-</script></body></html>
+</script>
+</body></html>
