@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Invoice Due Date Calculator - Net 7, 15, 30, 60 & 90 | GenFreeInvoice</title>
+<meta name="description" content="Free invoice due date calculator for Net 7, Net 14, Net 15, Net 30, Net 45, Net 60, Net 90 and custom payment terms.">
+<link rel="canonical" href="https://genfreeinvoice.com/invoice-due-date-calculator.html">
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f7ff;color:#20243a;line-height:1.6}
+header{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:25px 16px;text-align:center}
+header a{color:#fff;text-decoration:none}.logo{font-size:27px;font-weight:800}nav{margin-top:8px}nav a{margin:0 7px;font-size:14px}
+.container{max-width:720px;margin:28px auto;padding:0 16px}.card{background:#fff;border-radius:18px;padding:24px;margin-bottom:22px;box-shadow:0 8px 30px rgba(55,65,120,.1)}
+h1{font-size:30px;line-height:1.2;margin:0 0 10px}h2{font-size:22px;color:#4f46a5}h3{color:#4f46a5}.subtitle,.note{color:#667085}
+label{display:block;font-weight:bold;margin:15px 0 7px}input,select{width:100%;padding:13px;border:1px solid #d7dbea;border-radius:10px;font-size:16px;background:#fff}
+button{width:100%;border:0;border-radius:10px;padding:14px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:18px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+.secondary{background:#eef0ff;color:#4f46a5}.result{display:none;background:#f1efff;border:1px solid #dcd7ff;border-radius:14px;padding:20px;margin-top:20px}
+.result-main{font-size:28px;font-weight:800;color:#4f46a5}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.stat{background:#fff;border-radius:10px;padding:12px}.stat small{display:block;color:#667085}
+a{color:#4f46a5;font-weight:600}.cta{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}.cta h2,.cta a{color:#fff}
+footer{text-align:center;padding:30px 16px;color:#667085;font-size:14px}footer a{color:#4f46a5}
+@media(max-width:560px){h1{font-size:26px}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo"><a href="index.html">GenFreeInvoice</a></div>
+<nav><a href="index.html">Tools</a><a href="index.html#guides">Guides</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
+</header>
+
+<main class="container">
+<section class="card">
+<h1>Invoice Due Date Calculator</h1>
+<p class="subtitle">Calculate the exact payment due date for Net 7, Net 14, Net 15, Net 30, Net 45, Net 60, Net 90 and custom payment terms.</p>
+
+<label for="invoiceDate">Invoice date</label>
+<input type="date" id="invoiceDate">
+
+<label for="term">Payment terms</label>
+<select id="term">
+<option value="0">Due on receipt</option><option value="7">Net 7</option><option value="14">Net 14</option>
+<option value="15">Net 15</option><option value="30" selected>Net 30</option><option value="45">Net 45</option>
+<option value="60">Net 60</option><option value="90">Net 90</option><option value="custom">Custom number of days</option>
+</select>
+
+<div id="customWrap" style="display:none">
+<label for="customDays">Custom payment term (days)</label>
+<input type="number" id="customDays" min="0" max="3650" placeholder="e.g. 21">
+</div>
+
+<label for="weekendRule">If the due date falls on a weekend</label>
+<select id="weekendRule"><option value="keep">Keep calculated date</option><option value="next">Move to next weekday</option><option value="previous">Move to previous weekday</option></select>
+
+<button onclick="calculate()">Calculate Due Date</button>
+<button class="secondary" onclick="today()">Use Today</button>
+
+<div class="result" id="result">
+<div class="note">Calculated payment due date</div>
+<div class="result-main" id="due"></div>
+<div id="status" style="font-weight:bold"></div>
+<div class="grid">
+<div class="stat"><small>Invoice date</small><strong id="shownDate"></strong></div>
+<div class="stat"><small>Payment term</small><strong id="shownTerm"></strong></div>
+</div>
+<button class="secondary" onclick="copyResult()">Copy Due Date</button>
+</div>
+</section>
+
+<!-- YAHAN APNI ADSENSE CODE PASTE KAREIN -->
+
+<section class="card">
+<h2>How invoice due dates work</h2>
+<p>Payment terms tell your client when an invoice should be paid. For example, Net 30 normally means payment is due 30 calendar days after the invoice date, unless your agreement says the payment clock starts from another event.</p>
+<h3>Common payment terms</h3>
+<ul><li><strong>Due on receipt:</strong> payment is due immediately.</li><li><strong>Net 7:</strong> payment is due 7 days after the invoice date.</li><li><strong>Net 15:</strong> payment is due 15 days after the invoice date.</li><li><strong>Net 30:</strong> payment is due 30 days after the invoice date.</li><li><strong>Net 60:</strong> payment is due 60 days after the invoice date.</li><li><strong>Net 90:</strong> payment is due 90 days after the invoice date.</li></ul>
+<p class="note">This is a planning calculator. Your contract, customer terms and applicable local rules determine the actual enforceable payment deadline.</p>
+</section>
+
+<section class="card">
+<h2>Related GenFreeInvoice tools</h2>
+<p><a href="invoice-generator.html">Free Invoice Generator</a></p>
+<p><a href="freelance-hourly-rate-calculator.html">Freelance Hourly Rate Calculator</a></p>
+<p><a href="quote-calculator.html">Freelance Project Quote Calculator</a></p>
+</section>
+
+<section class="card cta">
+<h2>Learn about invoice payment terms</h2>
+<p>Understand Net 7, Net 15, Net 30 and other common payment terms.</p>
+<p><a href="invoice-payment-terms-explained.html">Read: Invoice Payment Terms Explained</a></p>
+</section>
+</main>
+
+<footer><p>© 2026 GenFreeInvoice. Free tools for freelancers and small businesses.</p>
+<p><a href="privacy-policy.html">Privacy</a> · <a href="about.html">About</a> · <a href="contact.html">Contact</a></p></footer>
+
+<script>
+function pad(n){return String(n).padStart(2,'0')}
+function iso(){let d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
+function nice(d){return d.toLocaleDateString(undefined,{weekday:'long',year:'numeric',month:'long',day:'numeric'})}
+document.getElementById('invoiceDate').value=iso();
+document.getElementById('term').onchange=function(){document.getElementById('customWrap').style.display=this.value==='custom'?'block':'none'};
+function today(){document.getElementById('invoiceDate').value=iso();calculate()}
+function calculate(){
+ let v=document.getElementById('invoiceDate').value;if(!v){alert('Please select an invoice date.');return}
+ let p=v.split('-').map(Number), d=new Date(p[0],p[1]-1,p[2],12);
+ let t=document.getElementById('term').value, days;
+ if(t==='custom'){days=parseInt(document.getElementById('customDays').value,10);if(!Number.isFinite(days)||days<0){alert('Enter a valid number of days.');return}}
+ else days=parseInt(t,10);
+ d.setDate(d.getDate()+days);
+ let r=document.getElementById('weekendRule').value;
+ if(r==='next'){if(d.getDay()===6)d.setDate(d.getDate()+2);if(d.getDay()===0)d.setDate(d.getDate()+1)}
+ if(r==='previous'){if(d.getDay()===6)d.setDate(d.getDate()-1);if(d.getDay()===0)d.setDate(d.getDate()-2)}
+ let now=new Date(), todayD=new Date(now.getFullYear(),now.getMonth(),now.getDate(),12), diff=Math.round((d-todayD)/86400000);
+ document.getElementById('due').textContent=nice(d);
+ document.getElementById('shownDate').textContent=nice(new Date(p[0],p[1]-1,p[2],12));
+ document.getElementById('shownTerm').textContent=t==='custom'?'Custom: '+days+' days':(days===0?'Due on receipt':'Net '+days);
+ document.getElementById('status').textContent=diff>0?'Due in '+diff+' day'+(diff===1?'':'s')+'.':diff===0?'Due today.':'Overdue by '+Math.abs(diff)+' day'+(Math.abs(diff)===1?'':'s')+'.';
+ document.getElementById('result').style.display='block';
+}
+async function copyResult(){let s='Invoice due date: '+document.getElementById('due').textContent+'\nPayment terms: '+document.getElementById('shownTerm').textContent;try{await navigator.clipboard.writeText(s);alert('Due date copied.')}catch(e){alert(s)}}
+</script>
+</body>
+</html>
