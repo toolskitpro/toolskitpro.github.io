@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Freelance Hourly Rate Calculator — What Should You Charge? | GenFreeInvoice</title><meta name="description" content="Calculate your true freelance hourly rate using your income goal, expenses, tax, and real billable hours. Free, no sign-up."><link rel="canonical" href="https://genfreeinvoice.com/freelance-hourly-rate-calculator.html"><meta property="og:title" content="Freelance Hourly Rate Calculator — What Should You Charge? | GenFreeInvoice"><meta property="og:description" content="Calculate your true freelance hourly rate using your income goal, expenses, tax, and real billable hours. Free, no sign-up."><meta property="og:url" content="https://genfreeinvoice.com/freelance-hourly-rate-calculator.html"><meta property="og:type" content="website"><style>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Freelance Hourly Rate Calculator (Any Currency) | GenFreeInvoice</title><meta name="description" content="Calculate your freelance hourly rate in your chosen currency using income goals, expenses, tax estimate and billable hours. Free to use — no sign-up required."><link rel="canonical" href="https://genfreeinvoice.com/freelance-hourly-rate-calculator.html"><meta property="og:title" content="Freelance Hourly Rate Calculator (Any Currency) | GenFreeInvoice"><meta property="og:description" content="Calculate your freelance hourly rate in your chosen currency using income goals, expenses, tax estimate and billable hours. Free to use — no sign-up required."><meta property="og:url" content="https://genfreeinvoice.com/freelance-hourly-rate-calculator.html"><meta property="og:type" content="website"><style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:#2d2a3a;line-height:1.65;background:#f7f6fb}
 .container{max-width:1100px;margin:0 auto;padding:0 20px}
@@ -72,30 +72,68 @@ footer a:hover{color:#fff}
 .about-line{color:#cfc8e6;font-size:.92rem}
 .footer-bottom{text-align:center;border-top:1px solid #3a2d55;margin-top:36px;padding-top:20px;font-size:.85rem;color:#8f86ad}
 .note{font-size:.85rem;color:#8f86ad;margin-top:10px}
+</style><style>
+.result-actions .calc-btn{margin:4px 6px 4px 0}
+@media print{body{background:#fff;color:#111}.site-header, .page-hero, section .container> .tool-card> .two-col, .tool-card>.calc-btn, #resultActions, .note, .cta-box, footer, .ad-slot{display:none!important}.tool-card{box-shadow:none;margin:0;padding:0}.result-box{display:block!important;background:#fff;border:1px solid #999;color:#111}.result-row,.result-row.total{color:#111}.tool-card:before{content:"GenFreeInvoice — Freelance Hourly Rate Estimate";display:block;font-size:20px;font-weight:700;margin:0 0 18px}.tool-card{break-inside:avoid}}
 </style></head><body>
 <header class="site-header"><div class="nav-wrap">
-<a class="logo" href="index.html">GenFree<span>Invoice</span></a>
+<a class="logo" href="https://genfreeinvoice.com/">GenFree<span>Invoice</span></a>
 <nav><a href="index.html#tools">Tools</a><a href="index.html#guides">Guides</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
 </div></header>
 
-<div class="page-hero"><div class="container"><h1>Freelance Hourly Rate Calculator</h1><p>Stop guessing what to charge. This calculator finds your real minimum rate based on your actual numbers.</p></div></div>
+<div class="page-hero"><div class="container"><h1>Freelance Hourly Rate Calculator</h1><p>Estimate a sustainable hourly rate using your own currency, income goal, business costs, tax assumption and billable hours. Designed for freelancers worldwide.</p></div></div>
 <section><div class="container">
 <div class="tool-card">
 <div class="two-col">
-<div class="field"><label>Target personal income per year ($)</label><input id="goal" type="number" min="0" value="50000"></div>
-<div class="field"><label>Business expenses per year ($)</label><input id="exp" type="number" min="0" value="5000"></div>
-<div class="field"><label>Weeks off per year (vacation + sick)</label><input id="off" type="number" min="0" max="52" value="4"></div>
-<div class="field"><label>Hours you work per week</label><input id="hrs" type="number" min="0" value="40"></div>
-<div class="field"><label>Tax rate you expect to pay (%)</label><input id="tax" type="number" min="0" max="60" value="25"></div>
-<div class="field"><label>Billable time (% of work hours)</label><input id="bill" type="number" min="0" max="100" value="60"></div>
+<div class="field"><label for="currency">Currency for your results</label><select id="currency"><option value="USD">USD — US Dollar</option><option value="GBP">GBP — British Pound</option><option value="EUR">EUR — Euro</option><option value="CAD">CAD — Canadian Dollar</option><option value="AUD">AUD — Australian Dollar</option><option value="NZD">NZD — New Zealand Dollar</option><option value="QAR">QAR — Qatari Riyal</option><option value="PKR">PKR — Pakistani Rupee</option><option value="INR">INR — Indian Rupee</option><option value="AED">AED — UAE Dirham</option><option value="SGD">SGD — Singapore Dollar</option><option value="ZAR">ZAR — South African Rand</option><option value="JPY">JPY — Japanese Yen</option><option value="BRL">BRL — Brazilian Real</option><option value="MXN">MXN — Mexican Peso</option></select></div>
+<div class="field"><label for="goal">Target personal income per year</label><input id="goal" type="number" min="0" step="any" value="50000"></div>
+<div class="field"><label for="exp">Business expenses per year</label><input id="exp" type="number" min="0" step="any" value="5000"></div>
+<div class="field"><label for="off">Weeks off per year (vacation + sick)</label><input id="off" type="number" min="0" max="52" step="1" value="4"></div>
+<div class="field"><label for="hrs">Hours you work per week</label><input id="hrs" type="number" min="0" max="168" step="any" value="40"></div>
+<div class="field"><label for="tax">Estimated effective tax rate (%)</label><input id="tax" type="number" min="0" max="99" step="any" value="25"></div>
+<div class="field"><label for="bill">Billable time (% of work hours)</label><input id="bill" type="number" min="0" max="100" step="any" value="60"></div>
 </div>
 <button class="calc-btn" onclick="calc()">Calculate My Rate</button>
+<div class="result-actions" id="resultActions" style="display:none;margin-top:12px"><button type="button" class="calc-btn" onclick="printResult()">Print / Save PDF</button> <button type="button" class="calc-btn" onclick="shareResult()">Share Result</button><p class="note" id="shareStatus" aria-live="polite"></p></div>
 <div class="result-box" id="result"></div>
-<p class="note">Only 50-70% of a freelancer's time is billable — the rest goes to admin, marketing, and emails. That is why guessing a rate almost always means undercharging.</p>
+<p class="note">Use your own local currency consistently. This calculator does not convert currencies or determine your actual tax liability. Only a portion of working time is usually billable because marketing, administration and client communication also take time.</p>
 </div>
-<div class="ad-slot">Advertisement</div>
+
 <div class="cta-box"><h3>Want the full formula explained?</h3><p style="margin-bottom:14px">Our guide breaks down each number with examples.</p><a class="btn" href="hourly-rate-guide.html">Read the Hourly Rate Guide</a></div>
 </div></section>
+
+
+<section aria-labelledby="rate-guide-title"><div class="container"><article class="prose">
+<h2 id="rate-guide-title">How to Calculate a Freelance Hourly Rate</h2>
+<p>A sustainable freelance rate should cover the income you want to earn, the costs of running your business, the hours you can realistically bill to clients, and a reasonable allowance for taxes. This hourly rate calculator is designed for freelancers, consultants, designers, developers, writers, virtual assistants and other independent professionals around the world.</p>
+<p>Choose a currency from the list and enter all amounts in that same currency. The currency selector changes how the result is displayed; it does not convert money between currencies or adjust the calculation for local cost of living.</p>
+<h2>How the hourly rate calculator works</h2>
+<p>The calculator uses your target personal income, annual business expenses, weeks off, working hours per week, estimated effective tax percentage and billable-time percentage. It first estimates the annual revenue needed, then divides that amount by the number of hours you expect to invoice.</p>
+<p><strong>Planning formula:</strong> Annual revenue target = (target income + annual business expenses) ÷ (1 − estimated tax rate). Estimated minimum hourly rate = annual revenue target ÷ annual billable hours.</p>
+<p>Annual billable hours are estimated as (52 − weeks off) × working hours per week × billable-time percentage. This is a simplified planning model, not a full accounting or tax calculation.</p>
+<h2>What counts as a business expense?</h2>
+<p>Include reasonable annual costs that help you operate your freelance business. Depending on your work, these might include software subscriptions, computer equipment, internet and phone costs, professional insurance, payment processing fees, training, workspace costs and accounting services. Use amounts that fit your own circumstances and local accounting rules.</p>
+<h2>Why billable hours matter</h2>
+<p>Not every hour you work can be invoiced. Finding clients, preparing proposals, answering emails, marketing, bookkeeping, learning new skills and managing projects all take time. If you work 40 hours a week but can invoice only 60% of those hours, the calculator should use 60% as your billable-time estimate rather than assuming all 40 hours are paid by clients.</p>
+<h2>Worked example using any currency</h2>
+<p>Suppose your target personal income is 50,000 units of your chosen currency, annual business expenses are 5,000, your estimated tax provision is 25%, you take four weeks off, work 40 hours per week and bill 60% of your working time. These figures are illustrative only and are not tax guidance for a specific country.</p>
+<ul><li>Available working weeks: 52 − 4 = 48.</li><li>Estimated annual billable hours: 48 × 40 × 60% = 1,152.</li><li>Estimated annual revenue target: (50,000 + 5,000) ÷ 0.75 = 73,333.33 currency units.</li><li>Estimated minimum hourly rate: 73,333.33 ÷ 1,152 = approximately 63.66 currency units per hour.</li></ul>
+<p>This result is a starting point. Compare it with the value you provide, the complexity of the work, client budgets and relevant market rates. You may choose to quote above your minimum to allow for profit, uncertainty, negotiation or future investment.</p>
+<h2>How to choose a realistic tax assumption</h2>
+<p>Tax rules differ by country and may depend on business structure, residency, income level, deductions, social contributions and other factors. The percentage entered in this calculator is your own estimate; the tool does not determine your actual tax liability. If you are unsure, consult official tax guidance for your jurisdiction or a qualified local tax professional.</p>
+<h2>Common hourly pricing mistakes</h2>
+<ul><li>Dividing an income goal by every hour in a year instead of realistic billable hours.</li><li>Forgetting recurring costs, equipment replacement, professional services or payment fees.</li><li>Using a tax percentage that does not reflect your own situation.</li><li>Copying another freelancer’s rate without considering experience, scope, risk or client market.</li><li>Never reviewing the rate as costs, demand, skills and workload change.</li></ul>
+<h2>Frequently asked questions</h2>
+<div class="faq">
+<details><summary>Can I use this calculator outside the United States?</summary><p>Yes. Select a listed currency and enter your own income and expense amounts in that currency. The formula is a general planning estimate; it does not apply country-specific tax rules or convert currencies.</p></details>
+<details><summary>Does the calculator convert currencies?</summary><p>No. It formats the result in your selected currency, but all inputs must already be in that same currency. Exchange rates and currency conversion are not included.</p></details>
+<details><summary>What is a good billable-time percentage?</summary><p>It depends on your work and business stage. Client-facing delivery may take a larger share of time for some freelancers, while new businesses may spend more time on sales and administration. Track your hours and use a realistic estimate rather than assuming every hour is billable.</p></details>
+<details><summary>Does the result include my actual taxes?</summary><p>No. The tax percentage is an assumption you provide. The result is not a tax return, tax assessment or personalized financial advice.</p></details>
+<details><summary>Should I charge exactly the minimum rate?</summary><p>Not necessarily. Treat the result as a planning floor, then consider your experience, service value, project risk, market conditions, profit goals and time spent on non-billable work before setting your client-facing rate.</p></details>
+</div>
+<p><strong>Important:</strong> This calculator provides an estimate for planning and educational purposes only. It does not replace accounting, legal, tax or financial advice. Check the rules and obligations that apply where you live and operate.</p>
+<p>Want more detail? Read the <a href="hourly-rate-guide.html">freelance hourly rate guide</a>, or explore the <a href="quote-calculator.html">project quote calculator</a> to plan a fixed-price project.</p>
+</article></div></section>
 
 <footer><div class="container"><div class="footer-grid">
 <div><h4>GenFreeInvoice</h4><p class="about-line">Free invoice, tax, and finance tools that help freelancers get paid fairly and manage money with confidence.</p></div>
@@ -124,23 +162,57 @@ footer a:hover{color:#fff}
 </div></footer>
 
 <script>
-function calc(){
-  var goal = parseFloat(document.getElementById('goal').value)||0;
-  var exp  = parseFloat(document.getElementById('exp').value)||0;
-  var off  = parseFloat(document.getElementById('off').value)||0;
-  var hrs  = parseFloat(document.getElementById('hrs').value)||0;
-  var tax  = parseFloat(document.getElementById('tax').value)||0;
-  var bill = parseFloat(document.getElementById('bill').value)||0;
-  var weeks = 52 - off;
-  var billableHours = weeks * hrs * (bill/100);
-  var grossNeed = (goal + exp) / (1 - tax/100);
-  var rate = billableHours > 0 ? grossNeed / billableHours : 0;
-  var box = document.getElementById('result');
-  box.style.display='block';
-  box.innerHTML =
-   '<div class="result-row"><span>Billable hours per year</span><strong>'+Math.round(billableHours).toLocaleString()+'</strong></div>' +
-   '<div class="result-row"><span>What you must gross (income + expenses + tax)</span><strong>$'+Math.round(grossNeed).toLocaleString()+'</strong></div>' +
-   '<div class="result-row total"><span>Your minimum hourly rate</span><span>$'+rate.toFixed(2)+'/hr</span></div>' +
-   '<p class="note">This is your floor — the rate below which you lose money. Most freelancers add 10-25% on top as profit and negotiation room.</p>';
+function formatMoney(value, currency){
+  try { return new Intl.NumberFormat(undefined,{style:'currency',currency:currency,maximumFractionDigits:2}).format(value); }
+  catch(e) { return currency+' '+Number(value).toFixed(2); }
 }
-</script></body></html>
+function calc(){
+  var goal = parseFloat(document.getElementById('goal').value);
+  var exp = parseFloat(document.getElementById('exp').value);
+  var off = parseFloat(document.getElementById('off').value);
+  var hrs = parseFloat(document.getElementById('hrs').value);
+  var tax = parseFloat(document.getElementById('tax').value);
+  var bill = parseFloat(document.getElementById('bill').value);
+  var currency = document.getElementById('currency').value;
+  var values=[goal,exp,off,hrs,tax,bill];
+  if(values.some(function(v){return !Number.isFinite(v);}) || goal<0 || exp<0 || off<0 || off>52 || hrs<=0 || hrs>168 || tax<0 || tax>=100 || bill<=0 || bill>100){
+    alert('Please check your inputs. Income and expenses must be zero or more; weeks off must be 0–52; weekly hours must be greater than 0 and no more than 168; tax must be 0–99.99%; and billable time must be greater than 0 and up to 100%.'); return;
+  }
+  var weeks=52-off;
+  var billableHours=weeks*hrs*(bill/100);
+  var grossNeed=(goal+exp)/(1-tax/100);
+  var rate=grossNeed/billableHours;
+  var box=document.getElementById('result');
+  box.innerHTML='<h2 style="margin-bottom:10px">Your estimate</h2>'+ 
+    '<div class="result-row"><span>Billable hours per year</span><strong>'+Math.round(billableHours).toLocaleString()+'</strong></div>'+ 
+    '<div class="result-row"><span>Gross revenue target</span><strong>'+formatMoney(grossNeed,currency)+'</strong></div>'+ 
+    '<div class="result-row total"><span>Estimated minimum hourly rate</span><span>'+formatMoney(rate,currency)+'/hr</span></div>'+ 
+    '<p class="note">Planning estimate only. The tax percentage is your own assumption, not a tax calculation. Consider adding a margin for profit, unpaid work, risk and negotiation.</p>';
+  box.style.display='block';
+  document.getElementById('resultActions').style.display='block';
+  document.getElementById('shareStatus').textContent='';
+}
+function resultText(){
+ var box=document.getElementById('result');
+ if(box.style.display==='none' || !box.innerText.trim()) return '';
+ return 'Freelance hourly rate estimate — GenFreeInvoice\n'+box.innerText.replace(/\n{2,}/g,'\n')+'\nInputs use my selected currency and assumptions. This is a planning estimate, not tax or financial advice. https://genfreeinvoice.com/freelance-hourly-rate-calculator.html';
+}
+function printResult(){
+ if(!resultText()){alert('Calculate your rate first.');return;}
+ window.print();
+}
+async function shareResult(){
+ var text=resultText();
+ if(!text){alert('Calculate your rate first.');return;}
+ var status=document.getElementById('shareStatus');
+ try{
+   if(navigator.share){await navigator.share({title:'My freelance hourly rate estimate',text:text});status.textContent='Share options opened.';}
+   else if(navigator.clipboard && navigator.clipboard.writeText){await navigator.clipboard.writeText(text);status.textContent='Result copied. You can paste it into a message or email.';}
+   else {window.prompt('Copy your result:',text);status.textContent='Copy the result from the box above.';}
+ }catch(e){if(e && e.name!=='AbortError') status.textContent='Sharing was not available. You can use Print / Save PDF instead.';}
+}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I use this calculator outside the United States?","acceptedAnswer":{"@type":"Answer","text":"Yes. Select a listed currency and enter your own income and expense amounts in that currency. The formula is a general planning estimate; it does not apply country-specific tax rules or convert currencies."}},{"@type":"Question","name":"Does the calculator convert currencies?","acceptedAnswer":{"@type":"Answer","text":"No. It formats the result in your selected currency, but all inputs must already be in that same currency. Exchange rates and currency conversion are not included."}},{"@type":"Question","name":"What is a good billable-time percentage?","acceptedAnswer":{"@type":"Answer","text":"It depends on your work and business stage. Track your hours and use a realistic estimate rather than assuming every hour is billable."}},{"@type":"Question","name":"Does the result include my actual taxes?","acceptedAnswer":{"@type":"Answer","text":"No. The tax percentage is an assumption you provide. The result is not a tax return, tax assessment or personalized financial advice."}},{"@type":"Question","name":"Should I charge exactly the minimum rate?","acceptedAnswer":{"@type":"Answer","text":"Not necessarily. Treat the result as a planning floor, then consider your experience, service value, project risk, market conditions, profit goals and non-billable work."}}]}
+</script>
+</body></html>
