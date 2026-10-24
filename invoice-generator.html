@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Free Invoice Generator — No Sign-Up, Save as PDF | GenFreeInvoice</title><meta name="description" content="Create a professional freelance invoice free. Add items, tax, and notes, then print or save as PDF in 2 minutes. No account needed."><link rel="canonical" href="https://genfreeinvoice.com/invoice-generator.html"><meta property="og:title" content="Free Invoice Generator — No Sign-Up, Save as PDF | GenFreeInvoice"><meta property="og:description" content="Create a professional freelance invoice free. Add items, tax, and notes, then print or save as PDF in 2 minutes. No account needed."><meta property="og:url" content="https://genfreeinvoice.com/invoice-generator.html"><meta property="og:type" content="website"><style>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Free Invoice Generator Online | Print or Save PDF</title><meta name="description" content="Create a professional invoice online with your currency, itemized services, tax and payment terms. Print or save as PDF. Free to use — no sign-up required."><link rel="canonical" href="https://genfreeinvoice.com/invoice-generator.html"><meta property="og:title" content="Free Invoice Generator Online | GenFreeInvoice"><meta property="og:description" content="Create a professional invoice with your currency, itemized services, tax and payment terms. Print or save as PDF. Free to use — no sign-up required."><meta property="og:url" content="https://genfreeinvoice.com/invoice-generator.html"><meta property="og:type" content="website"><style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:#2d2a3a;line-height:1.65;background:#f7f6fb}
 .container{max-width:1100px;margin:0 auto;padding:0 20px}
@@ -72,13 +72,13 @@ footer a:hover{color:#fff}
 .about-line{color:#cfc8e6;font-size:.92rem}
 .footer-bottom{text-align:center;border-top:1px solid #3a2d55;margin-top:36px;padding-top:20px;font-size:.85rem;color:#8f86ad}
 .note{font-size:.85rem;color:#8f86ad;margin-top:10px}
-</style></head><body>
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I use this invoice generator outside the United States?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can enter client details, select a listed currency and add your own descriptions and payment terms. Required invoice fields and tax rules vary by country, so check local requirements before sending."}},{"@type":"Question","name":"Does this tool calculate the correct tax rate for my country?","acceptedAnswer":{"@type":"Answer","text":"No. It applies the percentage you enter to the subtotal. You are responsible for confirming whether tax applies and which rate and treatment are appropriate."}},{"@type":"Question","name":"Can I create an invoice in a currency other than my own?","acceptedAnswer":{"@type":"Answer","text":"You can select a supported currency in the menu. Agree the billing currency with your client and verify the currency code and payment details on the final PDF."}},{"@type":"Question","name":"How do I save the invoice as a PDF?","acceptedAnswer":{"@type":"Answer","text":"Fill out the form, calculate the total and choose Print / Save as PDF. In the print dialog, select the PDF destination. Review the saved file before sending it."}},{"@type":"Question","name":"Does Share Result send the complete invoice?","acceptedAnswer":{"@type":"Answer","text":"No. It shares a short summary of the invoice details and total where your browser supports sharing. Use Print / Save as PDF to create the full invoice document."}}]}</script></head><body>
 <header class="site-header"><div class="nav-wrap">
-<a class="logo" href="index.html">GenFree<span>Invoice</span></a>
+<a class="logo" href="https://genfreeinvoice.com/">GenFree<span>Invoice</span></a>
 <nav><a href="index.html#tools">Tools</a><a href="index.html#guides">Guides</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
 </div></header>
 
-<div class="page-hero"><div class="container"><h1>Free Invoice Generator</h1><p>Create a professional invoice in under 2 minutes. Print it or save it as PDF. No sign-up, no watermark.</p></div></div>
+<div class="page-hero"><div class="container"><h1>Free Invoice Generator</h1><p>Create a professional invoice for clients around the world. Add your currency, services, tax if applicable, and payment terms, then print or save a PDF. Free to use — no sign-up required.</p></div></div>
 <section><div class="container">
 <div class="tool-card">
 <div class="two-col">
@@ -87,7 +87,7 @@ footer a:hover{color:#fff}
 <div class="field"><label>Client Name</label><input id="toName" type="text" placeholder="Client or company name"></div>
 <div class="field"><label>Client Email</label><input id="toEmail" type="email" placeholder="client@email.com"></div>
 <div class="field"><label>Invoice Number</label><input id="invNo" type="text" value="INV-001"></div>
-<div class="field"><label>Currency</label><select id="currency" onchange="calc()"><option value="$">$ USD</option><option value="&euro;">&euro; EUR</option><option value="&pound;">&pound; GBP</option><option value="&#8377;">&#8377; INR</option><option value="Rs ">Rs PKR</option></select></div>
+<div class="field"><label>Currency</label><select id="currency" onchange="calc()"><option value="$ USD ">$ USD</option><option value="€ EUR ">€ EUR</option><option value="£ GBP ">£ GBP</option><option value="C$ CAD ">C$ CAD</option><option value="A$ AUD ">A$ AUD</option><option value="NZ$ NZD ">NZ$ NZD</option><option value="₹ INR ">₹ INR</option><option value="Rs PKR ">Rs PKR</option><option value="﷼ QAR ">﷼ QAR</option><option value="د.إ AED ">د.إ AED</option><option value="R ZAR ">R ZAR</option><option value="R$ BRL ">R$ BRL</option><option value="¥ JPY ">¥ JPY</option><option value="S$ SGD ">S$ SGD</option></select></div>
 <div class="field"><label>Invoice Date</label><input id="invDate" type="date"></div>
 <div class="field"><label>Due Date</label><input id="dueDate" type="date"></div>
 </div>
@@ -102,9 +102,34 @@ footer a:hover{color:#fff}
 <button class="calc-btn" onclick="calc()">Calculate Total</button>
 <div class="result-box" id="result"></div>
 <div style="margin-top:16px"><button class="calc-btn" style="background:#3b2f63" onclick="printInvoice()">Print / Save as PDF</button></div>
+<div style="margin-top:10px"><button class="calc-btn" type="button" style="background:#167d70" onclick="shareInvoiceResult()">Share Result</button></div>
+<p class="note">Share Result shares a summary of the invoice total and basic details. It does not send your full invoice or payment.</p>
 <p class="note">Your invoice is generated in your browser — it is never uploaded to any server. To save as PDF, choose "Save as PDF" in the print dialog.</p>
 </div>
-<div class="ad-slot">Advertisement</div>
+<section aria-labelledby="invoice-help-title"><div class="container"><article class="prose">
+<h2 id="invoice-help-title">How to Create an Invoice for Any Country</h2>
+<p>An invoice records what you supplied, how much the client owes, and when payment is expected. This free invoice generator is designed for freelancers, contractors, consultants and small businesses working with clients locally or internationally. It runs in your browser, so the details you type are not sent to a server by this page.</p>
+<h2>What to Include on a Professional Invoice</h2>
+<ul><li>Your name or business name and a reliable contact email.</li><li>The client’s name or legal business name and contact details.</li><li>A unique invoice number, invoice date and agreed due date.</li><li>Clear descriptions of each service or product, with quantity, rate and line amount.</li><li>Subtotal, any applicable tax shown separately, and the final amount due.</li><li>Payment instructions and the agreed payment terms.</li></ul>
+<p>Some jurisdictions require additional details, such as a registered business address, tax registration number, tax rate, or a prescribed invoice format. Check the rules that apply to your business and client before sending an invoice.</p>
+<h2>How the Invoice Total Is Calculated</h2>
+<p>For each line, multiply quantity by rate. Add the line amounts to get the subtotal. If you enter a tax percentage, the tool calculates tax as a percentage of that subtotal and adds it to the total due.</p>
+<p><strong>Example:</strong> If you list 3 hours of consulting at 40 currency units per hour, the subtotal is 120. With a hypothetical 5% tax, tax is 6 and the total is 126. This is only a maths example, not advice that a particular tax rate applies in your country.</p>
+<h2>Choose a Currency and Set Clear Payment Terms</h2>
+<p>Select the currency agreed with your client and make sure the currency code is clear when you send the invoice. For cross-border work, agree in advance who covers bank or transfer fees and which exchange rate applies if the client pays in a different currency. Do not assume a currency symbol alone settles those questions.</p>
+<p>Use a due date that matches your contract or written agreement. If you use terms such as “Net 14” or “Net 30,” make sure the invoice date and due date are consistent. Add payment methods and account details only in the notes or your own secure invoice process; avoid sharing sensitive banking details in public.</p>
+<h2>Before You Send the Invoice</h2>
+<ol><li>Check the client’s billing name and email spelling.</li><li>Confirm each line description, quantity and rate.</li><li>Verify whether tax should apply and which rate or registration details are required locally.</li><li>Confirm the invoice number is unique and the due date matches the agreement.</li><li>Use Print / Save as PDF, review the PDF, then send it using your normal email or invoicing workflow.</li></ol>
+<h2>Limitations to Know</h2>
+<p>This tool calculates line totals and a simple percentage-based tax amount. It does not determine whether you must register for tax, which tax rate applies, withholding tax, reverse-charge treatment, discounts, deposits, multiple tax rates, or local e-invoicing requirements. Verify those items for your circumstances. Keep a copy of the invoice and payment records for your own bookkeeping.</p>
+<h2>Frequently Asked Questions</h2><div class="faq">
+<details><summary>Can I use this invoice generator outside the United States?</summary><p>Yes. You can enter client details, select a listed currency and add your own descriptions and payment terms. However, required invoice fields and tax rules vary by country, so check local requirements before sending.</p></details>
+<details><summary>Does this tool calculate the correct tax rate for my country?</summary><p>No. It applies the percentage you enter to the subtotal. You are responsible for confirming whether tax applies and which rate and treatment are appropriate.</p></details>
+<details><summary>Can I create an invoice in a currency other than my own?</summary><p>You can select a supported currency in the menu. Agree the billing currency with your client and verify the currency code and payment details on the final PDF.</p></details>
+<details><summary>How do I save the invoice as a PDF?</summary><p>Fill out the form, calculate the total and choose Print / Save as PDF. In the print dialog, select the PDF destination. Review the saved file before sending it.</p></details>
+<details><summary>Does Share Result send the complete invoice?</summary><p>No. It shares a short summary of the invoice details and total where your browser supports sharing. Use Print / Save as PDF to create the full invoice document.</p></details>
+</div><h2>Related Tools and Guides</h2><p>Plan your pricing with the <a href="freelance-hourly-rate-calculator.html">Freelance Hourly Rate Calculator</a>, estimate a project with the <a href="quote-calculator.html">Project Quote Calculator</a>, or read the separate <a href="invoice-guide.html">Invoice Guide</a> for workflow and payment follow-up tips.</p>
+</article></div></section>
 <div class="grid">
 <div class="card"><h3>1. Fill in your details</h3><p>Your name, client name, dates, and the work you completed.</p></div>
 <div class="card"><h3>2. Add items and tax</h3><p>List each piece of work with quantity and rate. Add tax if it applies.</p></div>
@@ -194,10 +219,30 @@ function buildInvoiceHTML(){
     '<tr style="background:#f0edfa"><td colspan="3" align="right"><strong>TOTAL DUE</strong></td><td align="right"><strong>'+money(total)+'</strong></td></tr></table>' +
     '<p style="margin-top:16px;color:#555">'+document.getElementById('notes').value+'</p>';
 }
+function shareInvoiceResult(){
+  calc();
+  var from = document.getElementById('fromName').value.trim() || 'Your business';
+  var client = document.getElementById('toName').value.trim() || 'Client';
+  var number = document.getElementById('invNo').value.trim() || 'Invoice';
+  var totalEl = document.querySelector('#result .result-row.total span:last-child');
+  var total = totalEl ? totalEl.textContent : 'See invoice';
+  var due = document.getElementById('dueDate').value || 'Not set';
+  var message = 'Invoice summary: ' + number + '\nFrom: ' + from + '\nTo: ' + client + '\nTotal due: ' + total + '\nDue date: ' + due + '\nCreated with GenFreeInvoice.';
+  if(navigator.share){ navigator.share({title:'Invoice summary', text:message}).catch(function(err){ if(err && err.name!=='AbortError') copyShareText(message); }); }
+  else { copyShareText(message); }
+}
+function copyShareText(message){
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(message).then(function(){ alert('Invoice summary copied. You can paste it into a message.'); }).catch(function(){ window.prompt('Copy your invoice summary:',message); }); }
+  else { window.prompt('Copy your invoice summary:',message); }
+}
 function printInvoice(){
   var w = window.open('', '_blank');
   w.document.write('<html><head><title>Invoice</title></head><body style="font-family:Arial;max-width:800px;margin:30px auto;color:#222">' + buildInvoiceHTML() + '</body></html>');
   w.document.close(); w.focus(); w.print();
 }
 addRow(); addRow();
+(function setDefaultInvoiceDate(){
+  var today = new Date(); var local = new Date(today.getTime()-today.getTimezoneOffset()*60000).toISOString().slice(0,10);
+  var dateField=document.getElementById('invDate'); if(dateField && !dateField.value) dateField.value=local;
+})();
 </script></body></html>
