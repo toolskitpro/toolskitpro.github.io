@@ -3,12 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Invoice Due Date Calculator - Net 7, 15, 30, 60 & 90 | GenFreeInvoice</title>
-<meta name="description" content="Free invoice due date calculator for Net 7, Net 14, Net 15, Net 30, Net 45, Net 60, Net 90 and custom payment terms.">
+<title>Free Invoice Due Date Calculator | Net 7, 15, 30, 45, 60, 90</title>
+<meta name="description" content="Free invoice due date calculator for Net 7, 14, 15, 30, 45, 60, 90 or custom terms. Free to use — no sign-up required.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:title" content="Free Invoice Due Date Calculator | GenFreeInvoice">
+<meta property="og:description" content="Calculate invoice deadlines for common or custom payment terms, with optional weekend adjustment. Free to use — no sign-up required.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://genfreeinvoice.com/invoice-due-date-calculator.html">
+<meta name="twitter:card" content="summary">
 <link rel="canonical" href="https://genfreeinvoice.com/invoice-due-date-calculator.html">
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f7ff;color:#20243a;line-height:1.6}
 header{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:25px 16px;text-align:center}
+.skip-link{position:absolute;left:-9999px;top:auto}.skip-link:focus{left:12px;top:12px;background:#fff;color:#222;padding:10px;z-index:10}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #17134d;outline-offset:2px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.actions button{margin-top:10px}
+.faq details{background:#faf9ff;border:1px solid #e3def0;border-radius:10px;padding:14px;margin:10px 0}.faq summary{font-weight:700;cursor:pointer;color:#34285b}
+@media print{header,footer,nav,button,.no-print{display:none!important}body{background:#fff;color:#000}.container{max-width:100%;margin:0;padding:0}.card{box-shadow:none;border:1px solid #ddd;break-inside:avoid}.result{display:block!important}a{color:#000;text-decoration:none}}
 header a{color:#fff;text-decoration:none}.logo{font-size:27px;font-weight:800}nav{margin-top:8px}nav a{margin:0 7px;font-size:14px}
 .container{max-width:720px;margin:28px auto;padding:0 16px}.card{background:#fff;border-radius:18px;padding:24px;margin-bottom:22px;box-shadow:0 8px 30px rgba(55,65,120,.1)}
 h1{font-size:30px;line-height:1.2;margin:0 0 10px}h2{font-size:22px;color:#4f46a5}h3{color:#4f46a5}.subtitle,.note{color:#667085}
@@ -20,14 +31,18 @@ a{color:#4f46a5;font-weight:600}.cta{background:linear-gradient(135deg,#667eea,#
 footer{text-align:center;padding:30px 16px;color:#667085;font-size:14px}footer a{color:#4f46a5}
 @media(max-width:560px){h1{font-size:26px}.grid{grid-template-columns:1fr}}
 </style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Free Invoice Due Date Calculator","url":"https://genfreeinvoice.com/invoice-due-date-calculator.html","applicationCategory":"BusinessApplication","operatingSystem":"Any","description":"Calculate invoice due dates for common and custom payment terms, with optional weekend adjustment.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does this calculator count business days?","acceptedAnswer":{"@type":"Answer","text":"No. It adds calendar days and does not automatically skip weekends or public holidays."}},{"@type":"Question","name":"Can I enter a payment term that is not listed?","acceptedAnswer":{"@type":"Answer","text":"Yes. Choose custom number of days and enter a whole number from 0 to 3650 days."}},{"@type":"Question","name":"Can I move a weekend due date?","acceptedAnswer":{"@type":"Answer","text":"Yes. Choose to move a Saturday or Sunday to the next or previous weekday. The tool does not determine legal requirements."}},{"@type":"Question","name":"Does the calculator save my invoice information?","acceptedAnswer":{"@type":"Answer","text":"The calculator runs in the browser and does not submit values to a GenFreeInvoice server."}}]}]}
+</script>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 <header>
 <div class="logo"><a href="index.html">GenFreeInvoice</a></div>
 <nav><a href="index.html">Tools</a><a href="index.html#guides">Guides</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
 </header>
 
-<main class="container">
+<main class="container" id="main-content">
 <section class="card">
 <h1>Invoice Due Date Calculator</h1>
 <p class="subtitle">Calculate the exact payment due date for Net 7, Net 14, Net 15, Net 30, Net 45, Net 60, Net 90 and custom payment terms.</p>
@@ -50,8 +65,7 @@ footer{text-align:center;padding:30px 16px;color:#667085;font-size:14px}footer a
 <label for="weekendRule">If the due date falls on a weekend</label>
 <select id="weekendRule"><option value="keep">Keep calculated date</option><option value="next">Move to next weekday</option><option value="previous">Move to previous weekday</option></select>
 
-<button onclick="calculate()">Calculate Due Date</button>
-<button class="secondary" onclick="today()">Use Today</button>
+<div class="actions no-print"><button type="button" onclick="calculate()">Calculate Due Date</button><button class="secondary" type="button" onclick="today()">Use Today</button></div>
 
 <div class="result" id="result">
 <div class="note">Calculated payment due date</div>
@@ -61,20 +75,37 @@ footer{text-align:center;padding:30px 16px;color:#667085;font-size:14px}footer a
 <div class="stat"><small>Invoice date</small><strong id="shownDate"></strong></div>
 <div class="stat"><small>Payment term</small><strong id="shownTerm"></strong></div>
 </div>
-<button class="secondary" onclick="copyResult()">Copy Due Date</button>
+<div class="actions no-print"><button class="secondary" type="button" onclick="copyResult()">Copy Due Date</button><button class="secondary" type="button" onclick="shareResult()">Share Result</button></div>
+<p class="note">Tip: use Print / Save PDF below to keep a copy of this result.</p>
 </div>
 </section>
 
-<!-- YAHAN APNI ADSENSE CODE PASTE KAREIN -->
-
-<section class="card">
-<h2>How invoice due dates work</h2>
-<p>Payment terms tell your client when an invoice should be paid. For example, Net 30 normally means payment is due 30 calendar days after the invoice date, unless your agreement says the payment clock starts from another event.</p>
-<h3>Common payment terms</h3>
-<ul><li><strong>Due on receipt:</strong> payment is due immediately.</li><li><strong>Net 7:</strong> payment is due 7 days after the invoice date.</li><li><strong>Net 15:</strong> payment is due 15 days after the invoice date.</li><li><strong>Net 30:</strong> payment is due 30 days after the invoice date.</li><li><strong>Net 60:</strong> payment is due 60 days after the invoice date.</li><li><strong>Net 90:</strong> payment is due 90 days after the invoice date.</li></ul>
-<p class="note">This is a planning calculator. Your contract, customer terms and applicable local rules determine the actual enforceable payment deadline.</p>
+<section class="card" id="due-date-guide">
+<h2>How to calculate an invoice due date</h2>
+<p>An invoice due date is the deadline agreed between a supplier and a customer. This free calculator helps freelancers, contractors, agencies, and small businesses estimate a deadline from an invoice date and payment term. <strong>Free to use — no sign-up required.</strong></p>
+<p>Choose the invoice date, select a standard term such as Net 7 or Net 30, or enter a custom number of calendar days. If your agreement specifies a weekend adjustment, choose whether to keep the calculated date or move it to the previous or next weekday.</p>
+<h3>Common invoice payment terms</h3>
+<ul><li><strong>Due on receipt:</strong> payment is expected when the invoice is received, subject to the agreement.</li><li><strong>Net 7 / Net 14 / Net 15:</strong> payment is generally due 7, 14, or 15 calendar days after the agreed starting date.</li><li><strong>Net 30:</strong> payment is generally due 30 calendar days after the agreed starting date.</li><li><strong>Net 45 / Net 60 / Net 90:</strong> longer payment windows of 45, 60, or 90 days.</li><li><strong>Custom terms:</strong> enter the exact number of days written in your contract or purchase order.</li></ul>
+<h3>Example: Net 30 payment terms</h3>
+<p>If an invoice date is 1 October and the agreed term is Net 30, adding 30 calendar days gives a calculated date of 31 October. Counting rules and the event that starts the payment period may differ by agreement or local law, so confirm the final deadline with your customer.</p>
+<h3>Calendar days, business days, weekends, and holidays</h3>
+<p>This calculator adds calendar days. It does not automatically remove public holidays or calculate business-day-only terms. The optional weekend setting changes a Saturday or Sunday due date only; it does not check local holidays. If your contract uses business days or a special holiday rule, verify the result manually and document the agreed deadline.</p>
+<h3>How to use this calculator</h3>
+<ol><li>Select the invoice date.</li><li>Choose the payment term or select custom days.</li><li>Choose how a weekend deadline should be handled.</li><li>Select <strong>Calculate Due Date</strong> and review the deadline and status.</li><li>Copy or share the result, or use Print / Save PDF to keep a record.</li></ol>
+<h3>Why a clear due date matters</h3>
+<p>A specific due date reduces misunderstandings, supports cash-flow planning, and makes payment reminders easier to write. Put the invoice date, due date, currency, amount due, payment method, and agreed terms on the invoice. For larger jobs, consider milestone invoices when the client has agreed to them.</p>
+<p class="note">This is a planning tool, not a legal determination. Your contract, customer terms, applicable local rules, and any relevant holiday provisions determine the actual payment deadline.</p>
 </section>
-
+<section class="card faq" id="faq">
+<h2>Invoice due date calculator FAQs</h2>
+<details><summary>Does this calculator count business days?</summary><p>No. It adds calendar days. It does not skip weekends or public holidays automatically. Use the weekend option only for a simple Saturday/Sunday adjustment, and verify business-day terms separately.</p></details>
+<details><summary>Can I enter a payment term that is not listed?</summary><p>Yes. Choose “Custom number of days” and enter a whole number from 0 to 3,650 days to calculate a custom deadline.</p></details>
+<details><summary>What does “Due on receipt” calculate?</summary><p>It uses zero additional days, so the calculated date is the invoice date. Your agreement may define when an invoice is considered received.</p></details>
+<details><summary>Can I move a weekend due date?</summary><p>Yes. Select “Move to next weekday” or “Move to previous weekday.” The calculator does not determine whether your contract or local rules require that adjustment.</p></details>
+<details><summary>Does the calculator save my invoice information?</summary><p>The calculator runs in your browser and does not submit the values to a GenFreeInvoice server. Your browser may still retain information according to your own device and browser settings.</p></details>
+<details><summary>Is the calculated date legally binding?</summary><p>No. It is a date estimate based on the values you enter. Confirm the payment deadline against the signed agreement, invoice terms, and rules that apply to your transaction.</p></details>
+<div class="actions no-print"><button type="button" onclick="window.print()">Print / Save PDF</button><button class="secondary" type="button" onclick="sharePage()">Share This Tool</button></div>
+</section>
 <section class="card">
 <h2>Related GenFreeInvoice tools</h2>
 <p><a href="invoice-generator.html">Free Invoice Generator</a></p>
@@ -117,6 +148,8 @@ function calculate(){
  document.getElementById('result').style.display='block';
 }
 async function copyResult(){let s='Invoice due date: '+document.getElementById('due').textContent+'\nPayment terms: '+document.getElementById('shownTerm').textContent;try{await navigator.clipboard.writeText(s);alert('Due date copied.')}catch(e){alert(s)}}
+async function shareResult(){const text='Invoice due date: '+document.getElementById('due').textContent+'\nPayment terms: '+document.getElementById('shownTerm').textContent;try{if(navigator.share){await navigator.share({title:'Invoice Due Date',text:text,url:location.href})}else if(navigator.clipboard){await navigator.clipboard.writeText(text+'\n'+location.href);alert('Result and link copied.')}else{alert(text+'\n'+location.href)}}catch(e){if(e.name!=='AbortError'){alert(text+'\n'+location.href)}}}
+async function sharePage(){try{if(navigator.share){await navigator.share({title:document.title,text:'Free invoice due date calculator — no sign-up required.',url:location.href})}else if(navigator.clipboard){await navigator.clipboard.writeText(location.href);alert('Tool link copied.')}else{alert(location.href)}}catch(e){if(e.name!=='AbortError'){alert(location.href)}}}
 </script>
 </body>
 </html>
