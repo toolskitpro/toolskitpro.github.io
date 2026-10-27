@@ -94,7 +94,7 @@ footer a:hover{color:#fff}
 <div class="field"><label>Delivery deadline</label><input id="deadline" type="date"></div>
 </div>
 <div class="field"><label>Payment terms</label><select id="terms"><option>50% upfront, 50% on delivery</option><option>100% upfront</option><option>100% on delivery</option><option>Monthly invoicing</option><option>30% upfront, 70% on delivery</option></select></div>
-<button class="calc-btn" onclick="gen()">Generate Contract</button>
+<button class="calc-btn" id="generateContractBtn" type="button">Generate Contract</button>
 <div class="result-box" id="result"></div>
 </div>
 
@@ -129,100 +129,92 @@ footer a:hover{color:#fff}
 </div></footer>
 
 <script>
-function gen(){
-  var f=document.getElementById('fName').value||'[Freelancer name]';
-  var c=document.getElementById('cName').value||'[Client name]';
-  var p=document.getElementById('project').value||'[Project description]';
-  var amt=document.getElementById('amount').value||'[Amount]';
-  var cur=document.getElementById('currency').value;
-  var start=document.getElementById('start').value||'[Start date]';
-  var deadline=document.getElementById('deadline').value||'[Deadline]';
-  var terms=document.getElementById('terms').value;
-  var text =
-'FREELANCE SERVICE AGREEMENT\n\n' +
-'This agreement is made between ' + c + ' ("the Client") and ' + f + ' ("the Freelancer").\n\n' +
-'1. PROJECT SCOPE\nThe Freelancer will provide the following services: ' + p + '.\nAny work outside this scope requires a written agreement and additional payment.\n\n' +
-'2. PAYMENT\nTotal project fee: ' + cur + amt + '.\nPayment terms: ' + terms + '.\nLate payments may pause all work until settled.\n\n' +
-'3. TIMELINE\nWork begins on ' + start + ' and will be delivered by ' + deadline + '.\nDelays caused by the Client (late feedback, missing materials) extend the deadline accordingly.\n\n' +
-'4. REVISIONS\nThe fee includes two rounds of reasonable revisions. Additional revisions are billed separately.\n\n' +
-'5. OWNERSHIP\nFull rights to the final delivered work transfer to the Client only after full payment is received.\n\n' +
-'6. CANCELLATION\nIf the Client cancels after work has begun, the Freelancer is paid for all hours worked plus 25% of the remaining fee.\n\n' +
-'7. INDEPENDENT CONTRACTOR\nThe Freelancer is an independent contractor, not an employee, and is responsible for their own taxes.\n\n' +
-'SIGNATURES\n\nClient: ______________________    Date: ____________\n\nFreelancer: __________________    Date: ____________\n\n' +
-'(This is a simple template, not legal advice. For large projects, have a lawyer review the final contract.)';
-  var box=document.getElementById('result');
-  box.style.display='block';
-  var safeText = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  box.innerHTML = '<pre id="contractText" style="white-space:pre-wrap;font-family:inherit;background:#fff;padding:14px;border-radius:8px;border:1px solid #e4def3">' + safeText + '</pre>' +
-    '<div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">' +
-    '<button type="button" class="calc-btn" style="width:auto" onclick="copyText()">Copy Text</button>' +
-    '<button type="button" class="calc-btn" style="width:auto;background:#3b2f63" onclick="printContract()">Print / Save as PDF</button>' +
-    '<button type="button" class="calc-btn" style="width:auto;background:#16805d" onclick="shareContract()">Share Contract</button></div>';
-}
-function copyText(){
-  var t=document.getElementById('contractText').textContent;
-  if(navigator.clipboard){ navigator.clipboard.writeText(t); }
-  var b=event.target; b.textContent='Copied!'; setTimeout(function(){b.textContent='Copy Text';},1500);
-}
-async function shareContract(){
-  var el=document.getElementById('contractText');
-  if(!el){alert('Generate your contract first.');return;}
-  var text=el.innerText||el.textContent||'';
-  if(!text.trim()){alert('Generate your contract first.');return;}
-  try{
-    if(navigator.share){await navigator.share({title:'Freelance Contract',text:text});}
-    else if(navigator.clipboard && window.isSecureContext){await navigator.clipboard.writeText(text);alert('Contract copied. You can paste it into a message or document.');}
-    else {var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();alert('Contract copied. You can paste it into a message or document.');}
-  }catch(e){if(e.name!=='AbortError') alert('Sharing was not available. Please use Copy Text.');}
-}
-function printContract(){
-  var el = document.getElementById('contractText');
-  if (!el) { alert('Generate your contract first.'); return; }
-  var w = window.open('', '_blank');
-  if (!w) { alert('Please allow pop-ups to print or save the contract as PDF.'); return; }
-  var printable = el.textContent;
-  w.document.open();
-  w.document.write('<!doctype html><html><head><meta charset="utf-8"><title>Freelance Service Agreement</title><style>body{font-family:Arial,sans-serif;max-width:800px;margin:32px auto;padding:0 20px;line-height:1.6;white-space:pre-wrap;color:#222}h1{font-size:22px}</style></head><body><h1>Freelance Service Agreement</h1><div id="printText"></div><script>
-/* Remove only accidental standalone literal \\n text nodes; leave contract text and normal whitespace untouched. */
-(function () {
-  function removeStrayMarkers() {
-    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    var nodes = [];
-    while (walker.nextNode()) {
-      if (walker.currentNode.nodeValue.trim() === '\\n') nodes.push(walker.currentNode);
-    }
-    nodes.forEach(function (node) { node.parentNode && node.parentNode.removeChild(node); });
+(function(){
+  'use strict';
+  function byId(id){ return document.getElementById(id); }
+  function makeContract(){
+    var f=byId('fName').value.trim()||'[Freelancer name]';
+    var c=byId('cName').value.trim()||'[Client name]';
+    var p=byId('project').value.trim()||'[Project description]';
+    var amt=byId('amount').value.trim()||'[Amount]';
+    var cur=byId('currency').value;
+    var start=byId('start').value||'[Start date]';
+    var deadline=byId('deadline').value||'[Deadline]';
+    var terms=byId('terms').value;
+    var text = [
+      'FREELANCE SERVICE AGREEMENT', '',
+      'This agreement is made between '+c+' ("the Client") and '+f+' ("the Freelancer").', '',
+      '1. PROJECT SCOPE',
+      'The Freelancer will provide the following services: '+p+'.',
+      'Any work outside this scope requires a written agreement and additional payment.', '',
+      '2. PAYMENT',
+      'Total project fee: '+cur+amt+'.',
+      'Payment terms: '+terms+'.',
+      'Late payments may pause all work until settled.', '',
+      '3. TIMELINE',
+      'Work begins on '+start+' and will be delivered by '+deadline+'.',
+      'Delays caused by the Client (late feedback or missing materials) extend the deadline accordingly.', '',
+      '4. REVISIONS',
+      'The fee includes two rounds of reasonable revisions. Additional revisions are billed separately.', '',
+      '5. OWNERSHIP',
+      'Full rights to the final delivered work transfer to the Client only after full payment is received.', '',
+      '6. CANCELLATION',
+      'If the Client cancels after work has begun, the Freelancer is paid for all hours worked plus 25% of the remaining fee, subject to the final agreement and applicable law.', '',
+      '7. INDEPENDENT CONTRACTOR',
+      'The Freelancer is an independent contractor, not an employee, and is responsible for their own taxes.', '',
+      'SIGNATURES', '',
+      'Client: ______________________    Date: ____________', '',
+      'Freelancer: __________________    Date: ____________', '',
+      '(This is a general template, not legal advice. For important projects, have the final contract reviewed under applicable local law.)'
+    ].join('\n');
+    var box=byId('result');
+    box.replaceChildren();
+    box.style.display='block';
+    var pre=document.createElement('pre');
+    pre.id='contractText';
+    pre.style.cssText='white-space:pre-wrap;overflow-wrap:anywhere;font-family:inherit;background:#fff;padding:14px;border-radius:8px;border:1px solid #e4def3;margin:0';
+    pre.textContent=text;
+    box.appendChild(pre);
+    var actions=document.createElement('div');
+    actions.style.cssText='margin-top:12px;display:flex;gap:10px;flex-wrap:wrap';
+    [['copyContractBtn','Copy Text'],['printContractBtn','Print / Save as PDF'],['shareContractBtn','Share Contract']].forEach(function(item){
+      var b=document.createElement('button'); b.type='button'; b.id=item[0]; b.className='calc-btn'; b.style.width='auto'; b.textContent=item[1]; actions.appendChild(b);
+    });
+    box.appendChild(actions);
+    byId('copyContractBtn').addEventListener('click',copyContract);
+    byId('printContractBtn').addEventListener('click',printContract);
+    byId('shareContractBtn').addEventListener('click',shareContract);
+    box.scrollIntoView({behavior:'smooth',block:'nearest'});
   }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', removeStrayMarkers);
-  } else {
-    removeStrayMarkers();
+  function contractText(){ var el=byId('contractText'); return el ? el.textContent : ''; }
+  async function copyContract(){
+    var text=contractText(); if(!text){alert('Generate your contract first.');return;}
+    try{
+      if(navigator.clipboard && window.isSecureContext){await navigator.clipboard.writeText(text);}
+      else {var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();var ok=document.execCommand('copy');ta.remove();if(!ok)throw new Error('Copy failed');}
+      var b=byId('copyContractBtn'); if(b){b.textContent='Copied!';window.setTimeout(function(){b.textContent='Copy Text';},1500);}
+    }catch(e){alert('Copy was not available on this browser. Please select the contract text and copy it manually.');}
   }
+  async function shareContract(){
+    var text=contractText(); if(!text){alert('Generate your contract first.');return;}
+    try{
+      if(navigator.share){await navigator.share({title:'Freelance Service Agreement',text:text});}
+      else if(navigator.clipboard && window.isSecureContext){await navigator.clipboard.writeText(text);alert('Contract copied. You can paste it into a message or document.');}
+      else {await copyContract();}
+    }catch(e){if(e.name!=='AbortError')alert('Sharing was not available. Please use Copy Text.');}
+  }
+  function printContract(){
+    var text=contractText(); if(!text){alert('Generate your contract first.');return;}
+    var w=window.open('','_blank');
+    if(!w){alert('Please allow pop-ups to print or save the contract as PDF.');return;}
+    var doc=w.document; doc.open();
+    doc.write('<!doctype html><html><head><meta charset="utf-8"><title>Freelance Service Agreement</title><style>body{font-family:Arial,sans-serif;max-width:800px;margin:32px auto;padding:0 20px;line-height:1.6;color:#222}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.6 Arial,sans-serif}</style></head><body><h1>Freelance Service Agreement</h1><pre id="printText"></pre></body></html>');
+    doc.close();
+    var target=doc.getElementById('printText'); if(target)target.textContent=text;
+    w.focus(); w.setTimeout(function(){w.print();},300);
+  }
+  var generate=byId('generateContractBtn');
+  if(generate)generate.addEventListener('click',makeContract);
 })();
-</script>
-</body></html>');
-  w.document.close();
-  w.document.getElementById('printText').textContent = printable;
-  w.focus();
-  w.print();
-}
 </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Freelance Contract Generator","url":"https://genfreeinvoice.com/contract-generator.html","applicationCategory":"BusinessApplication","operatingSystem":"Any","description":"Free to use freelance contract generator for scope, payment terms, deadlines, revisions and ownership. No sign-up required."}</script>
-<script>
-/* Remove only accidental standalone literal \\n text nodes; leave contract text and normal whitespace untouched. */
-(function () {
-  function removeStrayMarkers() {
-    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    var nodes = [];
-    while (walker.nextNode()) {
-      if (walker.currentNode.nodeValue.trim() === '\\n') nodes.push(walker.currentNode);
-    }
-    nodes.forEach(function (node) { node.parentNode && node.parentNode.removeChild(node); });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', removeStrayMarkers);
-  } else {
-    removeStrayMarkers();
-  }
-})();
-</script>
 </body></html>
