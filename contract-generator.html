@@ -182,11 +182,47 @@ function printContract(){
   if (!w) { alert('Please allow pop-ups to print or save the contract as PDF.'); return; }
   var printable = el.textContent;
   w.document.open();
-  w.document.write('<!doctype html><html><head><meta charset="utf-8"><title>Freelance Service Agreement</title><style>body{font-family:Arial,sans-serif;max-width:800px;margin:32px auto;padding:0 20px;line-height:1.6;white-space:pre-wrap;color:#222}h1{font-size:22px}</style></head><body><h1>Freelance Service Agreement</h1><div id="printText"></div></body></html>');
+  w.document.write('<!doctype html><html><head><meta charset="utf-8"><title>Freelance Service Agreement</title><style>body{font-family:Arial,sans-serif;max-width:800px;margin:32px auto;padding:0 20px;line-height:1.6;white-space:pre-wrap;color:#222}h1{font-size:22px}</style></head><body><h1>Freelance Service Agreement</h1><div id="printText"></div><script>
+/* Remove only accidental standalone literal \\n text nodes; leave contract text and normal whitespace untouched. */
+(function () {
+  function removeStrayMarkers() {
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    var nodes = [];
+    while (walker.nextNode()) {
+      if (walker.currentNode.nodeValue.trim() === '\\n') nodes.push(walker.currentNode);
+    }
+    nodes.forEach(function (node) { node.parentNode && node.parentNode.removeChild(node); });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', removeStrayMarkers);
+  } else {
+    removeStrayMarkers();
+  }
+})();
+</script>
+</body></html>');
   w.document.close();
   w.document.getElementById('printText').textContent = printable;
   w.focus();
   w.print();
 }
 </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Freelance Contract Generator","url":"https://genfreeinvoice.com/contract-generator.html","applicationCategory":"BusinessApplication","operatingSystem":"Any","description":"Free to use freelance contract generator for scope, payment terms, deadlines, revisions and ownership. No sign-up required."}</script>
+<script>
+/* Remove only accidental standalone literal \\n text nodes; leave contract text and normal whitespace untouched. */
+(function () {
+  function removeStrayMarkers() {
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    var nodes = [];
+    while (walker.nextNode()) {
+      if (walker.currentNode.nodeValue.trim() === '\\n') nodes.push(walker.currentNode);
+    }
+    nodes.forEach(function (node) { node.parentNode && node.parentNode.removeChild(node); });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', removeStrayMarkers);
+  } else {
+    removeStrayMarkers();
+  }
+})();
+</script>
 </body></html>
