@@ -79,7 +79,6 @@ footer a:hover{color:#fff}
 </div></header>
 
 <div class="page-hero"><div class="container"><h1>Freelance Contract Generator</h1><p>A clear agreement protects both sides. Fill in the blanks and get a ready-to-sign contract in under a minute.</p></div></div>
-<section aria-label="Freelance contract illustration"><div class="container"><div style="max-width:900px;margin:22px auto;background:linear-gradient(120deg,#eef2ff,#f4edff);border-radius:18px;padding:18px;display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap"><svg viewBox="0 0 340 150" role="img" aria-label="Freelance contract document and approval checkmark" style="width:min(100%,340px);height:auto"><rect x="54" y="9" width="145" height="130" rx="10" fill="#fff" stroke="#d8d5f2" stroke-width="2"/><rect x="72" y="27" width="85" height="9" rx="4" fill="#6256d9"/><rect x="72" y="48" width="106" height="5" rx="2" fill="#d6d9e8"/><rect x="72" y="61" width="94" height="5" rx="2" fill="#d6d9e8"/><rect x="72" y="74" width="108" height="5" rx="2" fill="#d6d9e8"/><path d="M72 119c10-18 16 7 25-3s13-11 23-2 15-9 24-2" fill="none" stroke="#6256d9" stroke-width="3" stroke-linecap="round"/><circle cx="245" cy="55" r="30" fill="#d8f7e6"/><path d="M231 55l10 10 19-22" fill="none" stroke="#159765" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><rect x="214" y="100" width="92" height="30" rx="15" fill="#6256d9"/><text x="260" y="119" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">AGREEMENT</text></svg><div style="max-width:360px"><h2 style="margin:0 0 8px;color:#28204d">Create a clearer agreement</h2><p style="margin:0;color:#514a70">Set out deliverables, payments, deadlines and changes before work begins.</p><p style="margin:10px 0 0;font-size:.88rem;color:#6256d9;font-weight:600">Free to use — no sign-up required.</p></div></div></div></section>
 <section><div class="container">
 <div class="tool-card">
 <div class="two-col">
@@ -151,9 +150,12 @@ function gen(){
 '(This is a simple template, not legal advice. For large projects, have a lawyer review the final contract.)';
   var box=document.getElementById('result');
   box.style.display='block';
-  box.innerHTML='<pre id="contractText" style="white-space:pre-wrap;font-family:inherit;background:#fff;padding:14px;border-radius:8px;border:1px solid #e4def3">'+text+'</pre>' +
-   '<div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap"><button class="calc-btn" style="width:auto" onclick="copyText()">Copy Text</button><button class="calc-btn" style="width:auto;background:#3b2f63" onclick="printContract()">Print / Save as PDF</button>
-<button class="calc-btn" style="width:auto;background:#16805d" onclick="shareContract()">Share Contract</button></div>';
+  var safeText = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  box.innerHTML = '<pre id="contractText" style="white-space:pre-wrap;font-family:inherit;background:#fff;padding:14px;border-radius:8px;border:1px solid #e4def3">' + safeText + '</pre>' +
+    '<div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">' +
+    '<button type="button" class="calc-btn" style="width:auto" onclick="copyText()">Copy Text</button>' +
+    '<button type="button" class="calc-btn" style="width:auto;background:#3b2f63" onclick="printContract()">Print / Save as PDF</button>' +
+    '<button type="button" class="calc-btn" style="width:auto;background:#16805d" onclick="shareContract()">Share Contract</button></div>';
 }
 function copyText(){
   var t=document.getElementById('contractText').textContent;
@@ -172,8 +174,16 @@ async function shareContract(){
   }catch(e){if(e.name!=='AbortError') alert('Sharing was not available. Please use Copy Text.');}
 }
 function printContract(){
-  var w=window.open('','_blank');
-  w.document.write('<html><head><title>Freelance Contract</title></head><body style="font-family:Georgia;max-width:700px;margin:30px auto;white-space:pre-wrap">'+document.getElementById('contractText').textContent+'<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Freelance Contract Generator","url":"https://genfreeinvoice.com/contract-generator.html","applicationCategory":"BusinessApplication","operatingSystem":"Any","description":"Free to use freelance contract generator for scope, payment terms, deadlines, revisions and ownership. No sign-up required."}</script>\n</body></html>');
-  w.document.close(); w.focus(); w.print();
+  var el = document.getElementById('contractText');
+  if (!el) { alert('Generate your contract first.'); return; }
+  var w = window.open('', '_blank');
+  if (!w) { alert('Please allow pop-ups to print or save the contract as PDF.'); return; }
+  var printable = el.textContent;
+  w.document.open();
+  w.document.write('<!doctype html><html><head><meta charset="utf-8"><title>Freelance Service Agreement</title><style>body{font-family:Arial,sans-serif;max-width:800px;margin:32px auto;padding:0 20px;line-height:1.6;white-space:pre-wrap;color:#222}h1{font-size:22px}</style></head><body><h1>Freelance Service Agreement</h1><div id="printText"></div></body></html>');
+  w.document.close();
+  w.document.getElementById('printText').textContent = printable;
+  w.focus();
+  w.print();
 }
 </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Freelance Contract Generator","url":"https://genfreeinvoice.com/contract-generator.html","applicationCategory":"BusinessApplication","operatingSystem":"Any","description":"Free to use freelance contract generator for scope, payment terms, deadlines, revisions and ownership. No sign-up required."}</script>\n</body></html>
