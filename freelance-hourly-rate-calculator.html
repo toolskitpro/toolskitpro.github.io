@@ -226,18 +226,34 @@ function resultText(){
  if(box.style.display==='none' || !box.innerText.trim()) return '';
  return 'Freelance hourly rate estimate — GenFreeInvoice\n'+box.innerText.replace(/\n{2,}/g,'\n')+'\nInputs use my selected currency and assumptions. This is a planning estimate, not tax or financial advice. https://genfreeinvoice.com/freelance-hourly-rate-calculator.html';
 }
-function startPrint(mode){
- if(!resultText()){alert('Calculate your rate first.');return;}
- document.body.classList.remove('print-estimate','print-full');
- document.body.classList.add(mode);
- var cleanup=function(){
-   document.body.classList.remove('print-estimate','print-full');
-   window.removeEventListener('afterprint',cleanup);
- };
- window.addEventListener('afterprint',cleanup);
- window.print();
- setTimeout(cleanup,1500);
+function buildPrintDocument(mode){
+  var result=document.getElementById('result');
+  if(!result || !result.innerHTML.trim() || result.style.display==='none'){
+    alert('Please calculate your rate first.');
+    return;
+  }
+  var fields='';
+  if(mode==='print-full'){
+    var ids=['currency','goal','exp','off','hrs','tax','bill'];
+    fields='<div class="fields">';
+    ids.forEach(function(id){
+      var el=document.getElementById(id);
+      if(!el)return;
+      var label=document.querySelector('label[for="'+id+'"]');
+      var value=el.tagName==='SELECT'?el.options[el.selectedIndex].text:el.value;
+      fields+='<div class="field"><span class="label">'+(label?label.textContent:id)+'</span><span class="value">'+value+'</span></div>';
+    });
+    fields+='</div>';
+  }
+  var title=mode==='print-estimate'?'Hourly Rate Estimate':'Hourly Rate Calculator and Estimate';
+  var w=window.open('','_blank');
+  if(!w){alert('Your browser blocked the print window. Allow pop-ups for this site and try again.');return;}
+  var doc='<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>'+title+'</title><style>'+
+  '@page{size:A4 portrait;margin:12mm}*{box-sizing:border-box}html,body{margin:0;padding:0;width:100%;font-family:Arial,Helvetica,sans-serif;color:#171717;background:#fff;font-size:14pt;line-height:1.45}body{padding:0}.sheet{width:100%;max-width:none;margin:0 auto}h1{font-size:24pt;line-height:1.2;margin:0 0 20px;padding:0 0 12px;border-bottom:3px solid #6657c8}h2{font-size:20pt;margin:0 0 22px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;margin:0 0 24px}.field{border:1px solid #cfcfcf;border-radius:6px;padding:12px;min-width:0;break-inside:avoid}.label{display:block;font-size:10pt;color:#555;margin-bottom:6px}.value{display:block;font-size:14pt;font-weight:600;overflow-wrap:anywhere}.result{display:block!important;visibility:visible!important;width:100%!important;min-height:'+(mode==='print-estimate'?'150mm':'90mm')+';padding:26px!important;margin:0!important;border:2px solid #aaa!important;border-left:7px solid #6657c8!important;border-radius:8px!important;background:#fff!important;color:#111!important;box-shadow:none!important;break-inside:avoid!important;page-break-inside:avoid!important}.result *{color:#111!important;max-width:100%!important}.result h2{font-size:20pt!important;margin:0 0 22px!important}.result .result-row{display:flex!important;justify-content:space-between!important;align-items:flex-start!important;gap:24px!important;padding:16px 0!important;border-bottom:1px solid #ddd!important;font-size:14pt!important;line-height:1.5!important}.result .result-row span:last-child{text-align:right!important;font-weight:600!important}.result .result-row.total{font-size:18pt!important;font-weight:700!important;padding-top:22px!important;border-bottom:0!important}.result .note{display:block!important;font-size:10pt!important;line-height:1.5!important;margin-top:24px!important;color:#444!important}@media print{body{print-color-adjust:exact;-webkit-print-color-adjust:exact}}'+
+  '</style></head><body><main class="sheet"><h1>GenFreeInvoice — '+title+'</h1>'+fields+'<section class="result">'+result.innerHTML+'</section></main><script>window.onload=function(){setTimeout(function(){window.focus();window.print();},350)};<\/script></body></html>';
+  w.document.open();w.document.write(doc);w.document.close();
 }
+function startPrint(mode){buildPrintDocument(mode);}
 function printEstimate(){startPrint('print-estimate');}
 function printCalculator(){startPrint('print-full');}
 async function shareResult(){
