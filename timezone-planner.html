@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Time Zone Planner — Find Meeting Hours Across Zones | GenFreeInvoice</title><meta name="description" content="Compare your time zone with your client's instantly. See current local times and the best meeting hours for both sides. Free tool."><link rel="canonical" href="https://genfreeinvoice.com/timezone-planner.html"><meta property="og:title" content="Time Zone Planner — Find Meeting Hours Across Zones | GenFreeInvoice"><meta property="og:description" content="Compare your time zone with your client's instantly. See current local times and the best meeting hours for both sides. Free tool."><meta property="og:url" content="https://genfreeinvoice.com/timezone-planner.html"><meta property="og:type" content="website"><style>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Free Time Zone Planner — Find Meeting Overlap Worldwide</title><meta name="description" content="Compare two time zones, check local times, and find overlapping working hours for client meetings. Free worldwide time zone planner with no sign-up required."><link rel="canonical" href="https://genfreeinvoice.com/timezone-planner.html"><meta property="og:title" content="Time Zone Planner — Find Meeting Hours Across Zones | GenFreeInvoice"><meta property="og:description" content="Compare two time zones, check local times, and find overlapping working hours for client meetings. Free worldwide time zone planner with no sign-up required."><meta property="og:url" content="https://genfreeinvoice.com/timezone-planner.html"><meta property="og:type" content="website"><style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:#2d2a3a;line-height:1.65;background:#f7f6fb}
 .container{max-width:1100px;margin:0 auto;padding:0 20px}
@@ -72,6 +72,7 @@ footer a:hover{color:#fff}
 .about-line{color:#cfc8e6;font-size:.92rem}
 .footer-bottom{text-align:center;border-top:1px solid #3a2d55;margin-top:36px;padding-top:20px;font-size:.85rem;color:#8f86ad}
 .note{font-size:.85rem;color:#8f86ad;margin-top:10px}
+@media print{.site-header, .cta-box, footer, .calc-btn{display:none!important}.tool-card,.prose{box-shadow:none!important}.timezone-visual{max-width:700px;margin:auto}}
 </style></head><body>
 <header class="site-header"><div class="nav-wrap">
 <a class="logo" href="index.html">GenFree<span>Invoice</span></a>
@@ -80,6 +81,7 @@ footer a:hover{color:#fff}
 
 <div class="page-hero"><div class="container"><h1>Time Zone Planner for Freelancers</h1><p>Pick your zone and your client's zone. See both local times and the meeting hours that actually work.</p></div></div>
 <section><div class="container">
+<div class="timezone-visual" role="img" aria-label="Illustration showing two world clocks connected for scheduling a meeting across time zones"><svg viewBox="0 0 720 190" xmlns="http://www.w3.org/2000/svg" width="100%" height="auto"><rect x="2" y="2" width="716" height="186" rx="22" fill="#f0edff"/><circle cx="132" cy="94" r="56" fill="#fff" stroke="#667eea" stroke-width="5"/><circle cx="132" cy="94" r="42" fill="#e4eaff"/><path d="M132 62v33l22 13" fill="none" stroke="#5a49c8" stroke-width="6" stroke-linecap="round"/><circle cx="132" cy="94" r="4" fill="#5a49c8"/><path d="M207 94h72m-14-14 14 14-14 14" fill="none" stroke="#667eea" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><rect x="292" y="48" width="145" height="92" rx="16" fill="#d8f8e9"/><text x="364" y="78" text-anchor="middle" font-size="13" fill="#27765c" font-family="Arial">YOUR TIME</text><text x="364" y="108" text-anchor="middle" font-size="21" font-weight="700" fill="#234d43" font-family="Arial">09:00</text><path d="M450 94h38m-12-12 12 12-12 12" fill="none" stroke="#667eea" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><rect x="502" y="48" width="165" height="92" rx="16" fill="#fff0c7"/><text x="584" y="78" text-anchor="middle" font-size="13" fill="#87621b" font-family="Arial">CLIENT TIME</text><text x="584" y="108" text-anchor="middle" font-size="21" font-weight="700" fill="#654817" font-family="Arial">12:00</text><text x="360" y="165" text-anchor="middle" font-size="12" fill="#6256a5" font-family="Arial">Compare local times and find a practical meeting window</text></svg></div>
 <div class="tool-card">
 <div class="two-col">
 <div class="field"><label>Your time zone</label><select id="zoneA" onchange="calc()"></select></div>
@@ -88,10 +90,10 @@ footer a:hover{color:#fff}
 <div class="two-col" style="margin:10px 0;font-weight:700;color:#3b2f63">
 <div id="nowA"></div><div id="nowB"></div>
 </div>
-<button class="calc-btn" onclick="calc()">Find Best Meeting Hours</button>
+<button class="calc-btn" onclick="calc()">Find Best Meeting Hours</button> <button type="button" class="calc-btn" style="background:#fff;color:#5a3fa0;border:1px solid #d9d2ec" onclick="shareTimePlan()">Share Result</button> <button type="button" class="calc-btn" style="background:#fff;color:#5a3fa0;border:1px solid #d9d2ec" onclick="window.print()">Print / Save PDF</button>
 <div class="result-box" id="result" style="display:block"></div>
 </div>
-<div class="ad-slot">Advertisement</div>
+
 <div class="cta-box"><h3>Working with overseas clients?</h3><p style="margin-bottom:14px">Our guide covers scheduling etiquette and how to set boundaries politely.</p><a class="btn" href="time-zone-guide.html">Read the Time Zone Guide</a></div>
 </div></section>
 
@@ -178,6 +180,15 @@ function calc(){
     ? '<p style="font-weight:700;color:#1e8e4f;margin-bottom:8px">Green rows = comfortable hours for both sides (8:00 - 20:00 local).</p>'
     : '<p style="margin-bottom:8px">No perfect overlap in waking hours — consider alternating early/late meetings.</p>') + rows;
 }
+
+function shareTimePlan(){
+ var a=document.getElementById('zoneA'), b=document.getElementById('zoneB');
+ var msg='Time Zone Planner — '+a.options[a.selectedIndex].text+' and '+b.options[b.selectedIndex].text+'. Check overlapping working hours at https://genfreeinvoice.com/timezone-planner.html';
+ if(navigator.share){navigator.share({title:'Time Zone Planner',text:msg,url:'https://genfreeinvoice.com/timezone-planner.html'}).catch(function(){});}
+ else if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(msg).then(function(){alert('Time zone plan link copied.');}).catch(function(){prompt('Copy this text:',msg);});}
+ else {prompt('Copy this text:',msg);}
+}
+
 fill('zoneA','Asia/Karachi'); fill('zoneB','America/New_York'); calc();
 </script>
 </body></html>
