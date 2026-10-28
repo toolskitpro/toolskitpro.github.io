@@ -6,11 +6,12 @@
 <title>Free Invoice Due Date Calculator | Net 7, 15, 30, 45, 60, 90</title>
 <meta name="description" content="Free invoice due date calculator for Net 7, 14, 15, 30, 45, 60, 90 or custom terms. Free to use — no sign-up required.">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#667eea">
 <meta property="og:title" content="Free Invoice Due Date Calculator | GenFreeInvoice">
 <meta property="og:description" content="Calculate invoice deadlines for common or custom payment terms, with optional weekend adjustment. Free to use — no sign-up required.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://genfreeinvoice.com/invoice-due-date-calculator.html">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://genfreeinvoice.com/invoice-due-date-calculator.html">
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f7ff;color:#20243a;line-height:1.6}
@@ -19,7 +20,7 @@ header{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:25p
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #17134d;outline-offset:2px}
 .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.actions button{margin-top:10px}
 .faq details{background:#faf9ff;border:1px solid #e3def0;border-radius:10px;padding:14px;margin:10px 0}.faq summary{font-weight:700;cursor:pointer;color:#34285b}
-@media print{header,footer,nav,button,.no-print{display:none!important}body{background:#fff;color:#000}.container{max-width:100%;margin:0;padding:0}.card{box-shadow:none;border:1px solid #ddd;break-inside:avoid}.result{display:block!important}a{color:#000;text-decoration:none}}
+@media print{header,footer,nav,button,.no-print,.visual-card,.content-card,.faq-card,.related-card,.cta{display:none!important}body{background:#fff;color:#000}.container{max-width:100%;margin:0;padding:0}.card{box-shadow:none;border:1px solid #ddd}.result{display:block!important}a{color:#000;text-decoration:none}}
 header a{color:#fff;text-decoration:none}.logo{font-size:27px;font-weight:800}nav{margin-top:8px}nav a{margin:0 7px;font-size:14px}
 .container{max-width:720px;margin:28px auto;padding:0 16px}.card{background:#fff;border-radius:18px;padding:24px;margin-bottom:22px;box-shadow:0 8px 30px rgba(55,65,120,.1)}
 h1{font-size:30px;line-height:1.2;margin:0 0 10px}h2{font-size:22px;color:#4f46a5}h3{color:#4f46a5}.subtitle,.note{color:#667085}
@@ -41,9 +42,9 @@ footer{text-align:center;padding:30px 16px;color:#667085;font-size:14px}footer a
 <div class="logo"><a href="index.html">GenFreeInvoice</a></div>
 <nav><a href="index.html">Tools</a><a href="index.html#guides">Guides</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
 </header>
-
+<section class="container visual-card" aria-label="Invoice due date illustration"><div class="card" style="display:flex;align-items:center;gap:22px;background:linear-gradient(120deg,#f0efff,#f5fbff);flex-wrap:wrap"><svg role="img" aria-labelledby="dueSvgTitle dueSvgDesc" viewBox="0 0 640 180" style="width:100%;max-width:640px;height:auto;display:block;margin:auto" xmlns="http://www.w3.org/2000/svg"><title id="dueSvgTitle">Invoice and payment deadline</title><desc id="dueSvgDesc">An invoice document connected to a calendar showing a payment due date.</desc><rect x="20" y="18" width="600" height="144" rx="20" fill="#e9e7ff"/><rect x="55" y="38" width="150" height="106" rx="12" fill="#fff" stroke="#d8d2f4" stroke-width="2"/><rect x="75" y="56" width="80" height="8" rx="4" fill="#6c63d9"/><rect x="75" y="75" width="105" height="6" rx="3" fill="#d5d2e8"/><rect x="75" y="89" width="92" height="6" rx="3" fill="#d5d2e8"/><rect x="75" y="103" width="68" height="6" rx="3" fill="#d5d2e8"/><path d="M230 90h55m-14-14 14 14-14 14" fill="none" stroke="#6c63d9" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><rect x="310" y="38" width="122" height="106" rx="12" fill="#fff" stroke="#d8d2f4" stroke-width="2"/><rect x="310" y="38" width="122" height="30" rx="12" fill="#6c63d9"/><rect x="310" y="55" width="122" height="13" fill="#6c63d9"/><text x="371" y="59" text-anchor="middle" font-size="13" font-weight="700" fill="#fff" font-family="Arial">DUE DATE</text><text x="371" y="99" text-anchor="middle" font-size="25" font-weight="700" fill="#30285a" font-family="Arial">30</text><text x="371" y="120" text-anchor="middle" font-size="12" fill="#6b6584" font-family="Arial">DAYS</text><path d="M452 90h42m-12-12 12 12-12 12" fill="none" stroke="#6c63d9" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><rect x="510" y="55" width="75" height="70" rx="14" fill="#d5fae8"/><path d="M529 90l12 12 25-28" fill="none" stroke="#15956e" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg><p style="text-align:center;width:100%;margin:0;color:#625b80">Turn agreed payment terms into a clear invoice deadline.</p></div></section>
 <main class="container" id="main-content">
-<section class="card">
+<section class="card calculator-card">
 <h1>Invoice Due Date Calculator</h1>
 <p class="subtitle">Calculate the exact payment due date for Net 7, Net 14, Net 15, Net 30, Net 45, Net 60, Net 90 and custom payment terms.</p>
 
@@ -75,12 +76,12 @@ footer{text-align:center;padding:30px 16px;color:#667085;font-size:14px}footer a
 <div class="stat"><small>Invoice date</small><strong id="shownDate"></strong></div>
 <div class="stat"><small>Payment term</small><strong id="shownTerm"></strong></div>
 </div>
-<div class="actions no-print"><button class="secondary" type="button" onclick="copyResult()">Copy Due Date</button><button class="secondary" type="button" onclick="shareResult()">Share Result</button></div>
-<p class="note">Tip: use Print / Save PDF below to keep a copy of this result.</p>
+<div class="actions no-print"><button class="secondary" type="button" onclick="copyResult()">Copy Due Date</button><button class="secondary" type="button" onclick="shareResult()">Share Result</button><button class="secondary" type="button" onclick="printEstimate()">Print Estimate Only</button><button class="secondary" type="button" onclick="printCalculator()">Print Calculator + Result</button></div>
+<p class="note">Print the result only, or include the calculator inputs with your estimate.</p>
 </div>
 </section>
 
-<section class="card" id="due-date-guide">
+<section class="card content-card" id="due-date-guide">
 <h2>How to calculate an invoice due date</h2>
 <p>An invoice due date is the deadline agreed between a supplier and a customer. This free calculator helps freelancers, contractors, agencies, and small businesses estimate a deadline from an invoice date and payment term. <strong>Free to use — no sign-up required.</strong></p>
 <p>Choose the invoice date, select a standard term such as Net 7 or Net 30, or enter a custom number of calendar days. If your agreement specifies a weekend adjustment, choose whether to keep the calculated date or move it to the previous or next weekday.</p>
@@ -96,7 +97,7 @@ footer{text-align:center;padding:30px 16px;color:#667085;font-size:14px}footer a
 <p>A specific due date reduces misunderstandings, supports cash-flow planning, and makes payment reminders easier to write. Put the invoice date, due date, currency, amount due, payment method, and agreed terms on the invoice. For larger jobs, consider milestone invoices when the client has agreed to them.</p>
 <p class="note">This is a planning tool, not a legal determination. Your contract, customer terms, applicable local rules, and any relevant holiday provisions determine the actual payment deadline.</p>
 </section>
-<section class="card faq" id="faq">
+<section class="card faq faq-card" id="faq">
 <h2>Invoice due date calculator FAQs</h2>
 <details><summary>Does this calculator count business days?</summary><p>No. It adds calendar days. It does not skip weekends or public holidays automatically. Use the weekend option only for a simple Saturday/Sunday adjustment, and verify business-day terms separately.</p></details>
 <details><summary>Can I enter a payment term that is not listed?</summary><p>Yes. Choose “Custom number of days” and enter a whole number from 0 to 3,650 days to calculate a custom deadline.</p></details>
@@ -104,7 +105,7 @@ footer{text-align:center;padding:30px 16px;color:#667085;font-size:14px}footer a
 <details><summary>Can I move a weekend due date?</summary><p>Yes. Select “Move to next weekday” or “Move to previous weekday.” The calculator does not determine whether your contract or local rules require that adjustment.</p></details>
 <details><summary>Does the calculator save my invoice information?</summary><p>The calculator runs in your browser and does not submit the values to a GenFreeInvoice server. Your browser may still retain information according to your own device and browser settings.</p></details>
 <details><summary>Is the calculated date legally binding?</summary><p>No. It is a date estimate based on the values you enter. Confirm the payment deadline against the signed agreement, invoice terms, and rules that apply to your transaction.</p></details>
-<div class="actions no-print"><button type="button" onclick="window.print()">Print / Save PDF</button><button class="secondary" type="button" onclick="sharePage()">Share This Tool</button></div>
+<div class="actions no-print"><button type="button" onclick="sharePage()">Share This Tool</button></div>
 </section>
 <section class="card">
 <h2>Related GenFreeInvoice tools</h2>
@@ -149,6 +150,27 @@ function calculate(){
 }
 async function copyResult(){let s='Invoice due date: '+document.getElementById('due').textContent+'\nPayment terms: '+document.getElementById('shownTerm').textContent;try{await navigator.clipboard.writeText(s);alert('Due date copied.')}catch(e){alert(s)}}
 async function shareResult(){const text='Invoice due date: '+document.getElementById('due').textContent+'\nPayment terms: '+document.getElementById('shownTerm').textContent;try{if(navigator.share){await navigator.share({title:'Invoice Due Date',text:text,url:location.href})}else if(navigator.clipboard){await navigator.clipboard.writeText(text+'\n'+location.href);alert('Result and link copied.')}else{alert(text+'\n'+location.href)}}catch(e){if(e.name!=='AbortError'){alert(text+'\n'+location.href)}}}
+
+function printDueDate(mode){
+ const result=document.getElementById('result');
+ if(!result || result.style.display==='none' || !document.getElementById('due').textContent.trim()){alert('Please calculate the due date first.');return}
+ let fields='';
+ if(mode==='full'){
+  const ids=['invoiceDate','term','customDays','weekendRule'];
+  fields='<div class="fields">';
+  ids.forEach(id=>{const el=document.getElementById(id);if(!el)return;if(id==='customDays'&&document.getElementById('term').value!=='custom')return;const label=document.querySelector('label[for="'+id+'"]');const value=el.tagName==='SELECT'?el.options[el.selectedIndex].text:el.value;fields+='<div class="field"><small>'+(label?label.textContent:id)+'</small><strong>'+value+'</strong></div>'});
+  fields+='</div>';
+ }
+ const win=window.open('','_blank');
+ if(!win){alert('Allow pop-ups for this site to print or save a PDF.');return}
+ const title=mode==='estimate'?'Invoice Due Date Estimate':'Invoice Due Date Calculator and Estimate';
+ win.document.open();
+ win.document.write('<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+title+'</title><style>@page{size:A4 portrait;margin:12mm}*{box-sizing:border-box}body{margin:0;font:14pt/1.5 Arial,sans-serif;color:#171717;background:#fff}h1{font-size:23pt;line-height:1.2;margin:0 0 22px;padding-bottom:12px;border-bottom:3px solid #6657c8}.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px}.field{border:1px solid #ccc;border-radius:8px;padding:14px}.field small{display:block;color:#555;font-size:10pt;margin-bottom:5px}.field strong{font-size:14pt}.result{display:block!important;visibility:visible!important;width:100%!important;min-height:'+(mode==='estimate'?'145mm':'80mm')+';padding:28px!important;border:2px solid #bbb!important;border-left:7px solid #6657c8!important;border-radius:10px!important;background:#fff!important;color:#111!important;box-shadow:none!important;break-inside:avoid}.result *{color:#111!important}.result-main{font-size:30pt!important;font-weight:800!important;margin:12px 0}.grid{display:grid!important;grid-template-columns:1fr 1fr!important;gap:14px!important;margin-top:20px!important}.stat{border:1px solid #ddd!important;padding:14px!important;border-radius:8px!important}.stat small{display:block;font-size:10pt;margin-bottom:6px}.stat strong{font-size:14pt}.note{font-size:10pt;color:#444!important}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}</style></head><body><h1>GenFreeInvoice — '+title+'</h1>'+fields+'<section class="result">'+result.innerHTML+'</section><script>window.onload=function(){setTimeout(function(){window.focus();window.print()},300)};<\/script></body></html>');
+ win.document.close();
+}
+function printEstimate(){printDueDate('estimate')}
+function printCalculator(){printDueDate('full')}
+
 async function sharePage(){try{if(navigator.share){await navigator.share({title:document.title,text:'Free invoice due date calculator — no sign-up required.',url:location.href})}else if(navigator.clipboard){await navigator.clipboard.writeText(location.href);alert('Tool link copied.')}else{alert(location.href)}}catch(e){if(e.name!=='AbortError'){alert(location.href)}}}
 </script>
 </body>
