@@ -151,21 +151,35 @@ function calculate(){
 async function copyResult(){let s='Invoice due date: '+document.getElementById('due').textContent+'\nPayment terms: '+document.getElementById('shownTerm').textContent;try{await navigator.clipboard.writeText(s);alert('Due date copied.')}catch(e){alert(s)}}
 async function shareResult(){const text='Invoice due date: '+document.getElementById('due').textContent+'\nPayment terms: '+document.getElementById('shownTerm').textContent;try{if(navigator.share){await navigator.share({title:'Invoice Due Date',text:text,url:location.href})}else if(navigator.clipboard){await navigator.clipboard.writeText(text+'\n'+location.href);alert('Result and link copied.')}else{alert(text+'\n'+location.href)}}catch(e){if(e.name!=='AbortError'){alert(text+'\n'+location.href)}}}
 
+
 function printDueDate(mode){
  const result=document.getElementById('result');
- if(!result || result.style.display==='none' || !document.getElementById('due').textContent.trim()){alert('Please calculate the due date first.');return}
- let fields='';
- if(mode==='full'){
-  const ids=['invoiceDate','term','customDays','weekendRule'];
-  fields='<div class="fields">';
-  ids.forEach(id=>{const el=document.getElementById(id);if(!el)return;if(id==='customDays'&&document.getElementById('term').value!=='custom')return;const label=document.querySelector('label[for="'+id+'"]');const value=el.tagName==='SELECT'?el.options[el.selectedIndex].text:el.value;fields+='<div class="field"><small>'+(label?label.textContent:id)+'</small><strong>'+value+'</strong></div>'});
-  fields+='</div>';
+ if(!result || result.style.display==='none' || !document.getElementById('due').textContent.trim()){
+   alert('Please calculate the due date first.');return;
  }
+ const invoiceDate=document.getElementById('shownDate').textContent;
+ const term=document.getElementById('shownTerm').textContent;
+ const due=document.getElementById('due').textContent;
+ const status=document.getElementById('status').textContent;
+ const full=mode==='full';
+ let fields='';
+ if(full){
+   const rows=[
+    ['Invoice date',invoiceDate],
+    ['Payment term',term],
+    ['Weekend adjustment',document.getElementById('weekendRule').selectedOptions[0].text]
+   ];
+   if(document.getElementById('term').value==='custom'){
+     rows.push(['Custom days',document.getElementById('customDays').value]);
+   }
+   fields='<section class="inputs"><h2>Calculator inputs</h2><div class="input-grid">'+rows.map(r=>'<div class="input-item"><span>'+r[0]+'</span><strong>'+r[1]+'</strong></div>').join('')+'</div></section>';
+ }
+ const title=full?'Invoice Due Date Calculator & Estimate':'Invoice Due Date Estimate';
  const win=window.open('','_blank');
- if(!win){alert('Allow pop-ups for this site to print or save a PDF.');return}
- const title=mode==='estimate'?'Invoice Due Date Estimate':'Invoice Due Date Calculator and Estimate';
+ if(!win){alert('Allow pop-ups for this site to print or save a PDF.');return;}
+ const estimate='<section class="estimate"><p class="eyebrow">CALCULATED PAYMENT DUE DATE</p><div class="due-date">'+due+'</div><div class="status">'+status+'</div><div class="facts"><div class="fact"><span>Invoice date</span><strong>'+invoiceDate+'</strong></div><div class="fact"><span>Payment term</span><strong>'+term+'</strong></div></div><p class="disclaimer">Planning estimate only. Confirm the payment deadline in your agreement and applicable local rules.</p></section>';
  win.document.open();
- win.document.write('<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+title+'</title><style>@page{size:A4 portrait;margin:12mm}*{box-sizing:border-box}body{margin:0;font:14pt/1.5 Arial,sans-serif;color:#171717;background:#fff}h1{font-size:23pt;line-height:1.2;margin:0 0 22px;padding-bottom:12px;border-bottom:3px solid #6657c8}.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px}.field{border:1px solid #ccc;border-radius:8px;padding:14px}.field small{display:block;color:#555;font-size:10pt;margin-bottom:5px}.field strong{font-size:14pt}.result{display:block!important;visibility:visible!important;width:100%!important;min-height:'+(mode==='estimate'?'145mm':'80mm')+';padding:28px!important;border:2px solid #bbb!important;border-left:7px solid #6657c8!important;border-radius:10px!important;background:#fff!important;color:#111!important;box-shadow:none!important;break-inside:avoid}.result *{color:#111!important}.result-main{font-size:30pt!important;font-weight:800!important;margin:12px 0}.grid{display:grid!important;grid-template-columns:1fr 1fr!important;gap:14px!important;margin-top:20px!important}.stat{border:1px solid #ddd!important;padding:14px!important;border-radius:8px!important}.stat small{display:block;font-size:10pt;margin-bottom:6px}.stat strong{font-size:14pt}.note{font-size:10pt;color:#444!important}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}</style></head><body><h1>GenFreeInvoice — '+title+'</h1>'+fields+'<section class="result">'+result.innerHTML+'</section><script>window.onload=function(){setTimeout(function(){window.focus();window.print()},300)};<\/script></body></html>');
+ win.document.write('<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+title+'</title><style>@page{size:A4 portrait;margin:12mm}*{box-sizing:border-box}html,body{margin:0;padding:0;background:#fff;color:#17152a;font-family:Arial,Helvetica,sans-serif}body{font-size:14pt;line-height:1.45}h1{font-size:25pt;line-height:1.2;margin:0 0 24px;padding:0 0 14px;border-bottom:4px solid #6657c8;color:#29234c}.inputs{margin:0 0 22px}.inputs h2{font-size:17pt;margin:0 0 12px}.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.input-item{padding:14px;border:1px solid #d8d5e6;border-radius:9px;min-height:68px}.input-item span,.fact span{display:block;color:#59556d;font-size:10pt;margin-bottom:6px}.input-item strong,.fact strong{display:block;font-size:14pt;overflow-wrap:anywhere}.estimate{width:100%;min-height:'+(full?'125mm':'225mm')+';padding:30px;border:2px solid #d4d0e7;border-left:9px solid #6657c8;border-radius:14px;background:#fff;display:flex;flex-direction:column;justify-content:center;break-inside:avoid}.eyebrow{font-size:11pt;font-weight:700;letter-spacing:1px;color:#5e568d;margin:0 0 18px}.due-date{font-size:30pt;font-weight:800;line-height:1.2;color:#2c2459;margin:0 0 18px;overflow-wrap:anywhere}.status{font-size:17pt;font-weight:700;color:#17694f;background:#e6f8f0;border-radius:8px;padding:12px 16px;margin-bottom:28px}.facts{display:grid;grid-template-columns:1fr 1fr;gap:14px}.fact{border:1px solid #d8d5e6;border-radius:10px;padding:18px;min-height:92px}.disclaimer{font-size:10pt;color:#55516a;border-top:1px solid #e1dfeb;padding-top:14px;margin:28px 0 0}.brand{font-size:10pt;color:#6a6680;margin-top:18px;text-align:right}@media print{*{-webkit-print-color-adjust:exact;print-color-adjust:exact}body{background:#fff}.estimate{min-height:'+(full?'125mm':'225mm')+';page-break-inside:avoid}}</style></head><body><h1>GenFreeInvoice — '+title+'</h1>'+fields+estimate+'<p class="brand">genfreeinvoice.com · Free tools for freelancers and small businesses</p><script>window.onload=function(){setTimeout(function(){window.focus();window.print()},500)};<\/script></body></html>');
  win.document.close();
 }
 function printEstimate(){printDueDate('estimate')}
