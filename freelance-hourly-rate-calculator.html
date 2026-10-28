@@ -77,21 +77,31 @@ footer a:hover{color:#fff}
 </style><style>
 .result-actions .calc-btn{margin:4px 6px 4px 0}
 @media print{
-@page{size:auto;margin:12mm}
-html,body{background:#fff!important;color:#111!important}
-body>header,body>.page-hero,body>.rate-visual,body>.cta-box,body>footer,body>section[aria-labelledby],body>.ad-slot{display:none!important}
-body>section.calculator-section{display:block!important;padding:0!important;margin:0!important}
-.calculator-section>.container{display:block!important;max-width:none!important;width:100%!important;padding:0!important;margin:0!important}
+@page{size:A4 portrait;margin:10mm}
+html,body{background:#fff!important;color:#111!important;font-size:10pt!important}
+body>*:not(.calculator-section){display:none!important}
+body.print-estimate .calculator-section .tool-card>.two-col,
+body.print-estimate #calculateBtn,
+body.print-estimate .calculator-section .tool-card>.note{display:none!important}
+body.print-full .calculator-section .cta-box{display:none!important}
+.calculator-section{display:block!important;padding:0!important;margin:0!important;background:#fff!important}
+.calculator-section>.container{display:block!important;width:100%!important;max-width:none!important;padding:0!important;margin:0!important}
 .calculator-section .tool-card{display:block!important;position:static!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:#fff!important;break-inside:avoid}
-.calculator-section .tool-card>.two-col,.calculator-section .tool-card>.calc-btn,#resultActions,.calculator-section .tool-card>.note{display:none!important}
-.calculator-section .tool-card:before{content:"GenFreeInvoice — Freelance Hourly Rate Estimate";display:block!important;font-size:20px;font-weight:700;color:#222;margin:0 0 18px;padding:0 0 10px;border-bottom:2px solid #6657c8}
-#result{display:block!important;visibility:visible!important;background:#fff!important;color:#111!important;border:1px solid #bbb!important;border-left:4px solid #6657c8!important;border-radius:8px!important;padding:18px!important;margin:0!important;break-inside:avoid}
+.calculator-section .tool-card:before{content:"GenFreeInvoice — Freelance Hourly Rate Estimate";display:block!important;font-size:18pt;font-weight:700;color:#222;margin:0 0 10px;padding:0 0 8px;border-bottom:2px solid #6657c8}
+.calculator-section .field{margin:0 0 6px!important}
+.calculator-section label{font-size:9pt!important;color:#222!important}
+.calculator-section input,.calculator-section select{font-size:9pt!important;padding:5px!important;border:1px solid #aaa!important;background:#fff!important;color:#111!important}
+.calculator-section .two-col{display:grid!important;grid-template-columns:1fr 1fr!important;gap:5px 12px!important}
+#calculateBtn,.result-actions,.cta-box{display:none!important}
+#result{display:block!important;visibility:visible!important;background:#fff!important;color:#111!important;border:1px solid #aaa!important;border-left:4px solid #6657c8!important;border-radius:5px!important;padding:12px!important;margin:10px 0 0!important;break-inside:avoid}
 #result *{visibility:visible!important;color:#111!important}
-#result h2{font-size:17px!important;margin:0 0 12px!important}
-#result .result-row{display:flex!important;justify-content:space-between!important;gap:20px;padding:8px 0;border-bottom:1px solid #ddd!important;font-size:11pt!important}
-#result .result-row.total{font-size:13pt!important;font-weight:700!important;border-bottom:0!important}
-#result .note{display:block!important;color:#444!important;font-size:9pt!important;margin-top:12px!important}
-}.site-header, .page-hero, section .container> .tool-card> .two-col, .tool-card>.calc-btn, #resultActions, .note, .cta-box, footer, .ad-slot{display:none!important}.tool-card{box-shadow:none;margin:0;padding:0}.result-box{display:block!important;background:#fff;border:1px solid #999;color:#111}.result-row,.result-row.total{color:#111}.tool-card:before{content:"GenFreeInvoice — Freelance Hourly Rate Estimate";display:block;font-size:20px;font-weight:700;margin:0 0 18px}.tool-card{break-inside:avoid}}
+#result h2{font-size:14pt!important;margin:0 0 8px!important}
+#result .result-row{display:flex!important;justify-content:space-between!important;gap:14px;padding:5px 0;border-bottom:1px solid #ddd!important;font-size:10pt!important}
+#result .result-row.total{font-size:12pt!important;font-weight:700!important;border-bottom:0!important}
+#result .note{display:block!important;color:#444!important;font-size:8pt!important;margin-top:8px!important}
+body.print-estimate .calculator-section .tool-card:before{content:"GenFreeInvoice — Hourly Rate Estimate"}
+body.print-estimate #result{margin-top:0!important}
+}
 </style></head><body>
 <header class="site-header"><div class="nav-wrap">
 <a class="logo" href="https://genfreeinvoice.com/">GenFree<span>Invoice</span></a>
@@ -111,9 +121,9 @@ body>section.calculator-section{display:block!important;padding:0!important;marg
 <div class="field"><label for="tax">Estimated effective tax rate (%)</label><input id="tax" type="number" min="0" max="99" step="any" value="25"></div>
 <div class="field"><label for="bill">Billable time (% of work hours)</label><input id="bill" type="number" min="0" max="100" step="any" value="60"></div>
 </div>
-<button class="calc-btn" onclick="calc()">Calculate My Rate</button>
-<div class="result-actions" id="resultActions" style="display:none;margin-top:12px"><button type="button" class="calc-btn" onclick="printResult()">Print / Save PDF</button> <button type="button" class="calc-btn" onclick="shareResult()">Share Result</button><p class="note" id="shareStatus" aria-live="polite"></p></div>
+<button class="calc-btn" id="calculateBtn" onclick="calc()">Calculate My Rate</button>
 <div class="result-box" id="result"></div>
+<div class="result-actions" id="resultActions" style="display:none;margin-top:14px;padding-top:12px;border-top:1px solid #e4def3"><p style="font-weight:700;margin:0 0 8px;color:#4a4364">Save or share your result</p><button type="button" class="calc-btn" onclick="printEstimate()">Print Estimate Only</button> <button type="button" class="calc-btn" onclick="printCalculator()">Print Calculator + Result</button> <button type="button" class="calc-btn" onclick="shareResult()">Share Result</button><p class="note" id="shareStatus" aria-live="polite"></p></div>
 <p class="note">Use your own local currency consistently. This calculator does not convert currencies or determine your actual tax liability. Only a portion of working time is usually billable because marketing, administration and client communication also take time.</p>
 </div>
 
@@ -215,10 +225,20 @@ function resultText(){
  if(box.style.display==='none' || !box.innerText.trim()) return '';
  return 'Freelance hourly rate estimate — GenFreeInvoice\n'+box.innerText.replace(/\n{2,}/g,'\n')+'\nInputs use my selected currency and assumptions. This is a planning estimate, not tax or financial advice. https://genfreeinvoice.com/freelance-hourly-rate-calculator.html';
 }
-function printResult(){
+function startPrint(mode){
  if(!resultText()){alert('Calculate your rate first.');return;}
+ document.body.classList.remove('print-estimate','print-full');
+ document.body.classList.add(mode);
+ var cleanup=function(){
+   document.body.classList.remove('print-estimate','print-full');
+   window.removeEventListener('afterprint',cleanup);
+ };
+ window.addEventListener('afterprint',cleanup);
  window.print();
+ setTimeout(cleanup,1500);
 }
+function printEstimate(){startPrint('print-estimate');}
+function printCalculator(){startPrint('print-full');}
 async function shareResult(){
  var text=resultText();
  if(!text){alert('Calculate your rate first.');return;}
