@@ -73,12 +73,17 @@ footer a:hover{color:#fff}
 .about-line{color:#cfc8e6;font-size:.92rem}
 .footer-bottom{text-align:center;border-top:1px solid #3a2d55;margin-top:36px;padding-top:20px;font-size:.85rem;color:#8f86ad}
 .note{font-size:.85rem;color:#8f86ad;margin-top:10px}
+.hero-illustration{max-width:900px;margin:28px auto 0;padding:0 20px}.hero-illustration svg{display:block;width:100%;height:auto;filter:drop-shadow(0 8px 18px rgba(35,20,70,.12))}@media(max-width:560px){.hero-illustration{margin-top:18px;padding:0 16px}}
+.result-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}.result-actions[hidden]{display:none}.secondary-btn{background:#3b2f63}.share-btn{background:#167d70}@media(max-width:560px){.result-actions .calc-btn{width:100%}}
 </style><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this calculator for the 2025 or 2026 tax year?","acceptedAnswer":{"@type":"Answer","text":"It uses 2026 federal income-tax brackets and standard deduction assumptions for planning 2026 income. Do not use it to calculate a 2025 tax return."}},{"@type":"Question","name":"Does the estimate include state taxes?","acceptedAnswer":{"@type":"Answer","text":"No. It estimates selected US federal taxes only. State and local taxes are not included."}},{"@type":"Question","name":"Is self-employment tax the same as income tax?","acceptedAnswer":{"@type":"Answer","text":"No. Self-employment tax mainly covers Social Security and Medicare. Federal income tax is separate, and eligible people may owe both."}},{"@type":"Question","name":"Can I use the quarterly amount as my exact payment?","acceptedAnswer":{"@type":"Answer","text":"No. It is a rough budgeting figure. Required estimated payments can depend on prior-year tax, withholding, credits, income timing, and other rules. Check Form 1040-ES or ask a tax professional."}},{"@type":"Question","name":"Does this include every deduction and credit?","acceptedAnswer":{"@type":"Answer","text":"No. This simplified tool does not model every deduction, credit, special tax, or individual circumstance."}}]}</script></head><body>
 <header class="site-header"><div class="nav-wrap">
 <a class="logo" href="https://genfreeinvoice.com/">GenFree<span>Invoice</span></a>
 <nav><a href="https://genfreeinvoice.com/#tools">Tools</a><a href="https://genfreeinvoice.com/#guides">Guides</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
 </div></header>
 <div class="page-hero"><div class="container"><h1>Self-Employment Tax Estimator</h1><p>2026 estimate for US federal taxes on freelance profit. Review your self-employment tax, estimated income tax, and a simple quarterly set-aside.</p></div></div>
+<div class="hero-illustration" role="img" aria-label="Illustration showing freelance income, tax estimate and quarterly planning">
+<svg viewBox="0 0 760 170" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="1" width="758" height="168" rx="22" fill="#f0edfa" stroke="#e2dcf6"/><rect x="24" y="25" width="190" height="120" rx="12" fill="#fff"/><rect x="43" y="43" width="80" height="8" rx="4" fill="#7560df"/><rect x="43" y="61" width="140" height="6" rx="3" fill="#ded9f4"/><rect x="43" y="77" width="112" height="6" rx="3" fill="#ded9f4"/><rect x="43" y="100" width="62" height="24" rx="6" fill="#e8e2fb"/><text x="55" y="116" font-family="Arial" font-size="10" fill="#55449b">INCOME</text><path d="M236 85h32m-10-10 10 10-10 10" fill="none" stroke="#7560df" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><rect x="286" y="25" width="180" height="120" rx="12" fill="#d7faed"/><text x="306" y="52" font-family="Arial" font-size="11" fill="#247c69">ESTIMATED TAX</text><text x="306" y="81" font-family="Arial" font-size="19" font-weight="700" fill="#244b47">Plan ahead</text><rect x="306" y="97" width="135" height="8" rx="4" fill="#9be8d0"/><rect x="306" y="97" width="92" height="8" rx="4" fill="#25b995"/><path d="M487 85h32m-10-10 10 10-10 10" fill="none" stroke="#7560df" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><rect x="537" y="25" width="199" height="120" rx="12" fill="#fff0bd"/><text x="557" y="52" font-family="Arial" font-size="11" fill="#80611c">QUARTERLY SET-ASIDE</text><text x="557" y="81" font-family="Arial" font-size="18" font-weight="700" fill="#59451c">Budget with care</text><rect x="557" y="97" width="150" height="8" rx="4" fill="#f5d980"/></svg>
+</div>
 <section><div class="container">
 <p style="font-size:.9rem;margin-bottom:14px;color:#6b6484"><a href="https://genfreeinvoice.com/">Home</a> › <a href="https://genfreeinvoice.com/#tools">Free tools</a> › 2026 Self-Employment Tax Calculator</p><div class="tool-card">
 <div class="two-col">
@@ -88,6 +93,11 @@ footer a:hover{color:#fff}
 <div class="field"><label>Filing status</label><select id="status"><option value="single">Single</option><option value="married">Married filing jointly</option></select></div>
 <button class="calc-btn" onclick="calc()">Estimate My Tax</button>
 <div class="result-box" id="result"></div>
+<div class="result-actions" id="resultActions" hidden>
+<button class="calc-btn" type="button" onclick="printTax('result')">Print / Save Result PDF</button>
+<button class="calc-btn secondary-btn" type="button" onclick="printTax('full')">Print Calculator + Result</button>
+<button class="calc-btn share-btn" type="button" onclick="shareTaxResult()">Share Result</button>
+</div>
 </div>
 
 <div class="cta-box"><h3>How does self-employment tax work?</h3><p style="margin-bottom:14px">Learn how Social Security and Medicare taxes work, which records to keep, and when estimated payments may be required.</p><a class="btn" href="self-employment-tax-guide.html">Read the Tax Guide</a></div>
@@ -159,4 +169,30 @@ function calc(){
    '<div class="result-row total"><span>Estimated total federal tax</span><span>$'+Math.round(total).toLocaleString()+'</span></div>' +
    '<div class="result-row"><span>Simple quarterly set-aside (total ÷ 4)</span><strong>$'+Math.round(total/4).toLocaleString()+'</strong></div>' +
    '<p class="note">2026 US federal planning estimate only. Does not include every deduction, credit, state/local tax, Additional Medicare Tax, or individual rule. Check IRS Form 1040-ES and official guidance; not tax advice.</p>';
-}</script></body></html>
+}document.getElementById('resultActions').hidden=true;
+var originalCalc=calc;calc=function(){originalCalc();if(document.getElementById('result').innerHTML.trim())document.getElementById('resultActions').hidden=false;};
+
+function taxPrintMarkup(mode){
+  var result=document.getElementById('result');
+  if(!result || !result.innerHTML.trim()){alert('Please estimate your tax first.');return null;}
+  var content='';
+  if(mode==='full'){
+    content+='<h2>Inputs used for this estimate</h2><table class="inputs"><tr><th>Expected yearly income</th><td>$'+Number(document.getElementById('income').value||0).toLocaleString()+'</td></tr><tr><th>Business expenses per year</th><td>$'+Number(document.getElementById('expenses').value||0).toLocaleString()+'</td></tr><tr><th>Filing status</th><td>'+document.getElementById('status').selectedOptions[0].textContent+'</td></tr></table>';
+  }
+  content+='<h2>Your estimate</h2>'+result.innerHTML;
+  content+='<p class="disclaimer">Planning estimate only. This tool covers selected 2026 US federal tax assumptions and is not a tax return or tax advice. It excludes state/local taxes and may omit deductions, credits and special rules. Verify with current IRS instructions.</p>';
+  return content;
+}
+function printTax(mode){
+  var content=taxPrintMarkup(mode);if(!content)return;
+  var w=window.open('','_blank');if(!w){alert('Please allow pop-ups to print or save the estimate as PDF.');return;}
+  w.document.open();w.document.write('<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>GenFreeInvoice — Tax Estimate</title><style>@page{size:A4;margin:16mm}*{box-sizing:border-box}body{font-family:Arial,Helvetica,sans-serif;color:#262238;margin:0;font-size:12pt;line-height:1.5}h1{font-size:22pt;margin:0 0 8px;color:#3b2f63}h2{font-size:16pt;margin:22px 0 12px;color:#3b2f63;border-bottom:2px solid #7560df;padding-bottom:6px}.brand{font-size:10pt;color:#7560df;margin-bottom:18px}.result-box{display:block!important;background:#f0edfa;border:1px solid #cfc5f2;border-left:5px solid #667eea;border-radius:10px;padding:22px;margin-top:10px;min-height:145mm}.result-row{display:flex;justify-content:space-between;gap:18px;padding:12px 4px;border-bottom:1px solid #d9d2ec;font-size:13pt}.result-row strong,.result-row span:last-child{font-weight:700}.result-row.total{font-size:16pt;color:#3b2f63;border-bottom:2px solid #cfc5f2;padding:16px 4px}.note{font-size:10pt;color:#514a67;margin-top:18px}.inputs{width:100%;border-collapse:collapse;margin:10px 0 20px}.inputs th,.inputs td{text-align:left;padding:9px;border-bottom:1px solid #ddd}.disclaimer{font-size:9.5pt;color:#615b70;margin-top:20px}@media print{body{print-color-adjust:exact;-webkit-print-color-adjust:exact}}</style></head><body><h1>GenFreeInvoice</h1><div class="brand">2026 US Self-Employment Tax Planning Estimate</div>'+content+'</body></html>');
+  w.document.close();w.onload=function(){w.focus();w.print();};
+}
+function shareTaxResult(){
+ var result=document.getElementById('result');if(!result||!result.innerText.trim()){alert('Please estimate your tax first.');return;}
+ var message='GenFreeInvoice — 2026 US Self-Employment Tax Planning Estimate\nExpected yearly income: $'+Number(document.getElementById('income').value||0).toLocaleString()+'\nBusiness expenses: $'+Number(document.getElementById('expenses').value||0).toLocaleString()+'\nFiling status: '+document.getElementById('status').selectedOptions[0].textContent+'\n\n'+result.innerText.replace(/\n{2,}/g,'\n')+'\n\nPlanning estimate only; verify with current IRS guidance.';
+ if(navigator.share){navigator.share({title:'Tax estimate',text:message}).catch(function(err){if(err&&err.name!=='AbortError')copyTaxText(message);});}else{copyTaxText(message);}
+}
+function copyTaxText(text){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(function(){alert('Estimate summary copied. You can paste it into a message.');}).catch(function(){window.prompt('Copy your estimate summary:',text);});}else{window.prompt('Copy your estimate summary:',text);}}
+</script></body></html>
