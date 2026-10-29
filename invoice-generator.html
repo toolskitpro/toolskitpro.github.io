@@ -103,10 +103,11 @@ footer a:hover{color:#fff}
 <div class="field"><label>Tax (%)</label><input id="tax" type="number" min="0" step="any" value="0" oninput="calc()"></div>
 <div class="field"><label>Notes / Payment Terms</label><input id="notes" type="text" placeholder="e.g. Payment due within 14 days via bank transfer"></div>
 </div>
-<button class="calc-btn" onclick="calc()">Calculate Total</button>
+<div class="action-row" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px"><button type="button" class="calc-btn" onclick="calc()">Calculate Total</button><button type="button" class="calc-btn" style="background:#3b2f63" onclick="generateInvoice()">Generate Invoice</button></div>
 <div class="result-box" id="result"></div>
-<div style="margin-top:16px"><button class="calc-btn" style="background:#3b2f63" onclick="printInvoice()">Print / Save as PDF</button></div>
-<div style="margin-top:10px"><button class="calc-btn" type="button" style="background:#167d70" onclick="shareInvoiceResult()">Share Result</button></div>
+<section id="invoicePreviewWrap" aria-labelledby="invoicePreviewTitle" style="display:none;margin-top:22px;background:#fff;border:1px solid #e5e1f2;border-radius:14px;padding:24px;box-shadow:0 8px 24px rgba(40,25,70,.06)"><h2 id="invoicePreviewTitle" style="margin:0 0 16px;color:#30234e">Invoice Preview</h2><div id="invoicePreview"></div></section>
+<div class="invoice-actions" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px"><button type="button" class="calc-btn" style="background:#3b2f63" onclick="printInvoice()">Print Invoice / Save PDF</button>
+<button class="calc-btn" type="button" style="background:#167d70" onclick="shareInvoiceResult()">Share Invoice Summary</button></div>
 <p class="note">Share Result shares a summary of the invoice total and basic details. It does not send your full invoice or payment.</p>
 <p class="note">Your invoice is generated in your browser — it is never uploaded to any server. To save as PDF, choose "Save as PDF" in the print dialog.</p>
 </div>
@@ -198,6 +199,7 @@ function calc(){
                   '<div class="result-row"><span>Tax ('+tax+'%)</span><strong>'+money(taxAmt)+'</strong></div>' +
                   '<div class="result-row total"><span>Total Due</span><span>'+money(total)+'</span></div>';
 }
+function escapeHTML(value){ return String(value == null ? '' : value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#39;'); }
 function buildInvoiceHTML(){
   setCur();
   var rows = '';
@@ -213,24 +215,33 @@ function buildInvoiceHTML(){
   return '<h1 style="color:#764ba2;margin:0">GenFreeInvoice</h1>' +
     '<p style="color:#888;margin-top:2px">INVOICE</p>' +
     '<table style="width:100%;margin:18px 0"><tr>' +
-    '<td><strong>From:</strong><br>'+document.getElementById('fromName').value+'<br>'+document.getElementById('fromEmail').value+'</td>' +
-    '<td style="text-align:right"><strong>Invoice #:</strong> '+document.getElementById('invNo').value+'<br><strong>Date:</strong> '+document.getElementById('invDate').value+'<br><strong>Due:</strong> '+document.getElementById('dueDate').value+'</td></tr>' +
-    '<tr><td colspan="2" style="padding-top:10px"><strong>Bill To:</strong><br>'+document.getElementById('toName').value+'<br>'+document.getElementById('toEmail').value+'</td></tr></table>' +
-    '<table border="1" cellpadding="8" cellspacing="0" style="width:100%;border-collapse:collapse;font-size:14px">' +
+    '<td><strong>From:</strong><br>'+escapeHTML(document.getElementById('fromName').value)+'<br>'+escapeHTML(document.getElementById('fromEmail').value)+'</td>' +
+    '<td style="text-align:right"><strong>Invoice #:</strong> '+escapeHTML(document.getElementById('invNo').value)+'<br><strong>Date:</strong> '+escapeHTML(document.getElementById('invDate').value)+'<br><strong>Due:</strong> '+escapeHTML(document.getElementById('dueDate').value)+'</td></tr>' +
+    '<tr><td colspan="2" style="padding-top:10px"><strong>Bill To:</strong><br>'+escapeHTML(document.getElementById('toName').value)+'<br>'+escapeHTML(document.getElementById('toEmail').value)+'</td></tr></table>' +
+    '<table class="invoice-preview-table" border="1" cellpadding="8" cellspacing="0" style="width:100%;border-collapse:collapse;font-size:14px">' +
     '<tr style="background:#f0edfa"><th align="left">Description</th><th>Qty</th><th>Rate</th><th>Amount</th></tr>' + rows +
     '<tr><td colspan="3" align="right"><strong>Subtotal</strong></td><td align="right">'+money(sub)+'</td></tr>' +
     '<tr><td colspan="3" align="right"><strong>Tax ('+tax+'%)</strong></td><td align="right">'+money(sub*tax/100)+'</td></tr>' +
     '<tr style="background:#f0edfa"><td colspan="3" align="right"><strong>TOTAL DUE</strong></td><td align="right"><strong>'+money(total)+'</strong></td></tr></table>' +
-    '<p style="margin-top:16px;color:#555">'+document.getElementById('notes').value+'</p>';
+    '<p style="margin-top:16px;color:#555">'+escapeHTML(document.getElementById('notes').value)+'</p>';
+}
+function generateInvoice(){
+  calc();
+  var previewWrap = document.getElementById('invoicePreviewWrap');
+  var preview = document.getElementById('invoicePreview');
+  if(!previewWrap || !preview){ alert('Invoice preview could not be displayed. Please reload the page and try again.'); return; }
+  preview.innerHTML = buildInvoiceHTML();
+  previewWrap.style.display = 'block';
+  previewWrap.scrollIntoView({behavior:'smooth', block:'start'});
 }
 function shareInvoiceResult(){
   calc();
-  var from = document.getElementById('fromName').value.trim() || 'Your business';
-  var client = document.getElementById('toName').value.trim() || 'Client';
-  var number = document.getElementById('invNo').value.trim() || 'Invoice';
+  var from = escapeHTML(document.getElementById('fromName').value).trim() || 'Your business';
+  var client = escapeHTML(document.getElementById('toName').value).trim() || 'Client';
+  var number = escapeHTML(document.getElementById('invNo').value).trim() || 'Invoice';
   var totalEl = document.querySelector('#result .result-row.total span:last-child');
   var total = totalEl ? totalEl.textContent : 'See invoice';
-  var due = document.getElementById('dueDate').value || 'Not set';
+  var due = escapeHTML(document.getElementById('dueDate').value) || 'Not set';
   var message = 'Invoice summary: ' + number + '\nFrom: ' + from + '\nTo: ' + client + '\nTotal due: ' + total + '\nDue date: ' + due + '\nCreated with GenFreeInvoice.';
   if(navigator.share){ navigator.share({title:'Invoice summary', text:message}).catch(function(err){ if(err && err.name!=='AbortError') copyShareText(message); }); }
   else { copyShareText(message); }
@@ -241,11 +252,12 @@ function copyShareText(message){
 }
 function printInvoice(){
   calc();
+  if(document.getElementById("invoicePreviewWrap") && document.getElementById("invoicePreviewWrap").style.display === "none"){ generateInvoice(); }
   var w=window.open('','_blank');
   if(!w){alert('Please allow pop-ups to print or save your invoice as PDF.');return;}
   var invoice=buildInvoiceHTML();
   w.document.open();
-  w.document.write('<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>GenFreeInvoice — Invoice</title><style>@page{size:A4;margin:15mm}*{box-sizing:border-box}body{font-family:Arial,Helvetica,sans-serif;color:#222;font-size:12pt;line-height:1.5;margin:0;width:100%}h1{font-size:24pt!important}table{width:100%;border-collapse:collapse;table-layout:fixed}td,th{padding:9px;overflow-wrap:anywhere}p{font-size:11pt}strong{font-weight:700}@media print{body{print-color-adjust:exact;-webkit-print-color-adjust:exact}}</style></head><body>'+invoice+'</body></html>');
+  w.document.write('<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>GenFreeInvoice — Invoice</title><style>@page{size:A4;margin:15mm}*{box-sizing:border-box}body{font-family:Arial,Helvetica,sans-serif;color:#222;font-size:12pt;line-height:1.5;margin:0;width:100%}h1{font-size:24pt!important}table{width:100%;border-collapse:collapse;table-layout:fixed}td,th{padding:9px;overflow-wrap:anywhere}p{font-size:11pt}strong{font-weight:700}@media print{body{print-color-adjust:exact;-webkit-print-color-adjust:exact}}.invoice-preview-table{width:100%;border-collapse:collapse}.invoice-preview-table th,.invoice-preview-table td{padding:10px;border:1px solid #ddd;text-align:left;overflow-wrap:anywhere}.invoice-preview-table th{background:#f0edfa}@media(max-width:600px){#invoicePreviewWrap{padding:14px!important;overflow-x:auto}}</style></head><body>'+invoice+'</body></html>');
   w.onload=function(){w.focus();w.print();};
   w.document.close();
 }
